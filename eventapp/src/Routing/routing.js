@@ -2,6 +2,9 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '../Components/Login/Home'
 import Registration from '../Components/registration/Registration'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Routing = () => {
   return (
@@ -11,7 +14,10 @@ const Routing = () => {
           <Route path='/' element={<Home />} />
           <Route path="/Register" element={<Registration />} />
         </Routes>
+        <ToastContainer theme="dark"/>
       </BrowserRouter>
+      
+
       
     </div>
   )

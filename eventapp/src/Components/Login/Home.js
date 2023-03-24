@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import "../style/home.css"
+import { toast } from 'react-toastify';
 
 const Home = () => {
+  const [email,setEmail]=useState("")
+  const [password,setPassword]=useState("")
+
+  //toast function
+  const notifyA=(msg)=>toast.error(msg)
+  const notifyB=(msg)=>toast.success(msg)
+
+  
+  const emailRegex=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+  
+
+
+
+  const data=()=>{
+    if(!email || !password){
+      notifyA("Please add all the fields")
+     }
+     else if(!emailRegex.test(email)){
+      notifyA("Invalid email")
+    
+     }else if(!passwordRegex.test(password)){
+      notifyA("The Password must be eight characters or longer,must contain at least 1 lowercase alphabetical character, must contain at least 1 uppercase alphabetical character, must contain at least 1 numeric character, must contain at least one special character")
+ 
+     }else 
+      notifyB("Signed in successfull")
+ 
+     
+  }
 
     const navigate=useNavigate();
 
@@ -42,11 +71,23 @@ const Home = () => {
       <br></br>
 
       <div className="form-outline mb-4">
-        <input type="email" placeholder='Phone / Email'  className='inputs' />
+        <input type="email" 
+        placeholder='Phone / Email' 
+        value={email} 
+        className='inputs' 
+        onChange={(e)=>{
+        setEmail(e.target.value)
+        }} />
       </div>
 
       <div className="form-outline mb-4">
-        <input type="password"  placeholder='Password' className='inputs' />
+        <input type="password" 
+         placeholder='Password' 
+         value={password}
+         className='inputs' 
+         onChange={(e)=>{
+          setPassword(e.target.value)
+         }}/>
       </div>
 
 
@@ -61,7 +102,8 @@ const Home = () => {
       <div className="row mb-4">
         <div className="col-md-6 d-flex justify-content-center" onClick={RegistrationPage} >Create Account</div>
         <div className="col-md-6 d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
+        <button type="submit"
+         className="btn btn-primary btn-block mb-4" onClick={()=>{data()}}>Sign in</button>
         </div>
       </div>
     </form>
@@ -77,12 +119,27 @@ const Home = () => {
       <br></br>
 
       <div className="form-outline mb-4">
-        <input type="email" placeholder='Phone / Email' className='inputs' />
+        <input type="email" 
+          value={email}
+        placeholder='Phone / Email' 
+        className='inputs'
+        onChange={(e)=>{
+          setEmail(e.target.value)
+        }}
+         />
       </div>
 
  
       <div className="form-outline mb-4">
-        <input type="password"  placeholder='Password' className='inputs' />
+        <input type="password" 
+          value={password} 
+          placeholder='Password' 
+          className='inputs' 
+      
+          onChange={(e)=>{
+          setPassword(e.target.value)
+        }}
+        />
       </div>
 
 
@@ -97,7 +154,8 @@ const Home = () => {
       <div className="row mb-4">
         <div className="col-md-6 d-flex justify-content-center"  onClick={RegistrationPage}>Create Account</div>
         <div className="col-md-6 d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button>
+        <button type="submit" 
+        className="btn btn-primary btn-block mb-4" onClick={()=>{data()}}>Sign in</button>
         </div>
       </div>
     </form>
