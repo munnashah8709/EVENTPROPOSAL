@@ -1,22 +1,10 @@
 import './App.css';
+import Home from './components/screen/Home';
 
 function App() {
   return (
     <>
-<div className="container">
-  <div className="row">
-    <div className="col-sm">
-      One of three columns
-    </div>
-    <div className="col-sm">
-      One of three columns
-    </div>
-    <div className="col-sm">
-      One of three columns
-    </div>
-  </div>
-</div>
-
+       <Home/>
     </>  
     );
 }

@@ -58,7 +58,7 @@ bcrypt.compare(password,savedVendor.password)
         res.json({token,vendor:{_id,name,email}})
     }
     else{
-        return res.status(422).json({ error: "inValid email or password" })
+        return res.status(422).json({ error: "Invalid email or password" })
     }
 })
 .catch(err=>{

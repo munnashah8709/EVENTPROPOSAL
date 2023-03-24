@@ -1,0 +1,28 @@
+.bgimg{
+   background-size: cover; 
+   background-position: center;
+   background-repeat: no-repeat;
+   height: 100vh;
+}
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+.logo {
+    height: 100px;
+    width: auto;
+  }
+  .text-container {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    translate: -20% -50%;
+  }
+  .text{
+font: normal normal  50px/66px Open Sans;
+letter-spacing: 3.5px;
+color: #FFFFFF;
+text-transform: uppercase;
+
+  }
