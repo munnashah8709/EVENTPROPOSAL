@@ -71,7 +71,7 @@ const Home = () => {
       <br></br>
 
       <div className="form-outline mb-4">
-        <input type="email" 
+        <input type="text" 
         placeholder='Phone / Email' 
         value={email} 
         className='inputs' 
@@ -119,7 +119,7 @@ const Home = () => {
       <br></br>
 
       <div className="form-outline mb-4">
-        <input type="email" 
+        <input type="text" 
           value={email}
         placeholder='Phone / Email' 
         className='inputs'
