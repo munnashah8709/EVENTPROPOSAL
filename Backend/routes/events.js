@@ -10,8 +10,6 @@ router.post('/createevent', (req, res) => {
     }
     res.json({message:"sucessfully posted"})
 
-
-
 })
 
 

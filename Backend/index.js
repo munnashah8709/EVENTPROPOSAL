@@ -2,9 +2,9 @@ const express=require('express')
 const app=express()
 const PORT=8080;
 require("./connection/connection")
-require("./model/user")
-require("./model/vendor")
-require("./model/event")
+require("./schemas/user")
+require("./schemas/vendor")
+require("./schemas/event")
 
 app.use(express.json())
 app.use(require("./routes/users"))

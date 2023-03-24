@@ -14,7 +14,6 @@ router.post('/vendorsignup', (req, res) => {
         .then((savedVendor => {
             if (savedVendor) {
                 return res.status(422).json({ error: "Vendor already existed with this email" })
-
             }
             bcrypt.hash(password, 12)
                 .then(hashedpassword => {
