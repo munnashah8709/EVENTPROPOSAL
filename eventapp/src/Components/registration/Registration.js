@@ -11,6 +11,7 @@ const Registration = () => {
   // User registration usestate.
   const [UsersData, SetUsersData] = useState({});
 
+
   //toast function
   const notifyA=(msg)=>toast.error(msg)
   const notifyB=(msg)=>toast.success(msg)
