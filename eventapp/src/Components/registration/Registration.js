@@ -9,7 +9,7 @@ const Registration = () => {
   const [password,setPassword]=useState("")
   const [confirmPassword,setConfirmPassword]=useState("")
 
-  
+ 
   //toast function
   const notifyA=(msg)=>toast.error(msg)
   const notifyB=(msg)=>toast.success(msg)

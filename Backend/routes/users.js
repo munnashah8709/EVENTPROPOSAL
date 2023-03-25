@@ -66,4 +66,10 @@ bcrypt.compare(password,savedUser.password)
 })
 }))
 })
+
+router.post('/userlogout', (req, res) => {
+    // remove the token from local storage or session storage on the client-side
+    res.json({ message: "Vendor logged out successfully" })
+})
+
 module.exports=router
