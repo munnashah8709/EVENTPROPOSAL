@@ -37,7 +37,15 @@ const Home = () => {
     const navigate=useNavigate();
 
     const RegistrationPage=()=>{
-      navigate("/Register")
+      navigate("/Vendor")
+    }
+
+    function RoutToUserLogin(){
+      navigate("/UserLogin")
+    }
+
+    function RoutToVendor(){
+      navigate("/")
     }
 
 
@@ -51,11 +59,11 @@ const Home = () => {
 <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
   <li className="nav-item" role="presentation">
     <a className="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
-      aria-controls="pills-login" aria-selected="true">Vendor</a>
+      aria-controls="pills-login" aria-selected="true" onClick={RoutToVendor} >Vendor</a>
   </li>
   <li className="nav-item" role="presentation">
     <a className="nav-link" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
-      aria-controls="pills-login" aria-selected="false">User</a>
+      aria-controls="pills-login" aria-selected="false" onClick={RoutToUserLogin} >User</a>
   </li>
 </ul>
 

@@ -12,12 +12,13 @@ const Routing = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path="/Register" element={<Registration />} />
+          <Route path='/UserLogin' element={<Home />} />
+
+          <Route path="/user" element={<Registration />} />
+          <Route path="/Vendor" element={<Registration />} />
         </Routes>
         <ToastContainer theme="dark"/>
       </BrowserRouter>
-      
-
       
     </div>
   )
