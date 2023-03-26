@@ -6,7 +6,6 @@ const User = mongoose.model("User")
 const jwt=require("jsonwebtoken")
 
 
-
 router.post('/usersignup', (req, res) => {
     const { name, email, password,contact } = req.body;
     if (!email || !password || !name ||!contact) {
