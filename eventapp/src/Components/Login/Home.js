@@ -4,6 +4,8 @@ import "../style/home.css"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
+ import party from '../../image/PartyImg.png'
+
 const Home = () => {
   //vendorlogin data
   const [email, setemail]=useState("")
@@ -17,6 +19,10 @@ const Home = () => {
 
   //displaying success message
   const [Loginmessage,SetLoginmessage]=useState("");
+
+  const navigate=useNavigate();
+
+  
 
 
 
@@ -34,14 +40,14 @@ const Home = () => {
       })
   })
   const data = await resp.json();
-  console.log(data)
-
   if (data.token) {
     localStorage.setItem("jwt", data.token)
     localStorage.setItem("Vendor", JSON.stringify(data.vendor))
   }
   if(data){
     SetLoginmessage("login successfull")
+    navigate("/Vendor_Dashboard")
+
   }
   }
 
@@ -59,20 +65,18 @@ const Home = () => {
       })
   })
   const datas = await response.json();
-  console.log(datas)
-
-  
   if (datas.token) {
     localStorage.setItem("jwt", datas.token)
     localStorage.setItem("User", JSON.stringify(datas.user))
   }
   if(datas){
     SetLoginmessage("login successfull")
+    navigate("/User_Dashboard")
   }
   }
 
 
-    const navigate=useNavigate();
+    
     const RegistrationPage=()=>{
       navigate("/Vendor")
     }
@@ -90,7 +94,8 @@ const Home = () => {
      
   return (
 <>
-<div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px"}}>
+<div className='bgimg' style={{ backgroundImage: `url(${party})`}}>
+<div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px",}}>
 <div className="tab-content" style={{padding:"20px", justifyContent:"center", width:"382px"}}  >
 {/* userbutton and vendor butoon */}
 
@@ -191,7 +196,7 @@ const Home = () => {
 
   </div>
   </div>
-
+</div>
       </>
   )
 }
