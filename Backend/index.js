@@ -13,12 +13,12 @@ app.use(cors({
 require("./connection/connection")
 require("./schemas/user")
 require("./schemas/vendor")
-require("./schemas/event")
+require("./schemas/proposal")
 
 app.use(express.json())
 app.use(require("./routes/users"))
 app.use(require("./routes/vendors"))
-app.use(require("./routes/events"))
+app.use(require("./routes/event"))
 
 app.listen(PORT, ()=>{
     console.log("server starting on port "+ PORT)
