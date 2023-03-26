@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 const Vendor = mongoose.model("Vendor")
 const jwt=require("jsonwebtoken")
-const Token = mongoose.model('Token');
+// const Token = mongoose.model('Token');
 
 router.post('/vendorsignup', (req, res) => {
     const { name, email, password,contact } = req.body;
@@ -67,22 +67,22 @@ bcrypt.compare(password,savedVendor.password)
 }))
 })
 
-router.post('/vendorlogout', (req, res) => {
-    const token = req.headers.authorization.split(' ')[1]; // Extract token from authorization header
+// router.post('/vendorlogout', (req, res) => {
+//     const token = req.headers.authorization.split(' ')[1]; // Extract token from authorization header
   
-    // Remove token from client-side local storage
-    localStorage.removeItem('token');
+//     // Remove token from client-side local storage
+//     localStorage.removeItem('token');
   
-    // Remove token from database
-    Token.deleteOne({ value: token }, (err) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ error: 'Internal server error' });
-      } else {
-        console.log('Token removed successfully');
-        return res.json({ message: 'Vendor logged out successfully' });
-      }
-    });
-  });
+//     // Remove token from database
+//     Token.deleteOne({ value: token }, (err) => {
+//       if (err) {
+//         console.log(err);
+//         return res.status(500).json({ error: 'Internal server error' });
+//       } else {
+//         console.log('Token removed successfully');
+//         return res.json({ message: 'Vendor logged out successfully' });
+//       }
+//     });
+//   });
 
 module.exports=router
