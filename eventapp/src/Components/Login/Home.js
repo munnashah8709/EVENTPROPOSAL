@@ -19,6 +19,8 @@ const Home = () => {
   const [Loginmessage,SetLoginmessage]=useState("");
 
 
+
+  //Vendorlogin 
   const VendorLogin= async()=>{
     const resp = await fetch("http://localhost:8080/vendorsignin", {
       method: 'POST',
@@ -43,44 +45,31 @@ const Home = () => {
   }
   }
 
-
+// userlogin
   const UserLogin= async()=>{
-   console.log(userEmail,userPassword);
-   
-   axios.post("http://localhost:8080/usersignin",{
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      userEmail,
-      userPassword
-    })
-   }).then((res)=>{
-    console.log(res)
-   }).catch((err)=>{
-    console.log(err)
-   })
-
-  //  const res=  await fetch("http://localhost:8080/usersignin",{
-  //     method: 'POST',
-  //     headers: {
-  //         'Content-Type': 'application/json',
-  //         'Accept': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       userEmail,
-  //       userPassword
-  //     })
-  //   })
-
-  }
-
+    const response = await fetch("http://localhost:8080/usersignin", {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email:userEmail,
+        password:userPassword,
+      })
+  })
+  const datas = await response.json();
+  console.log(datas)
 
   
-
-
+  if (datas.token) {
+    localStorage.setItem("jwt", datas.token)
+    localStorage.setItem("User", JSON.stringify(datas.user))
+  }
+  if(datas){
+    SetLoginmessage("login successfull")
+  }
+  }
 
 
     const navigate=useNavigate();
@@ -164,8 +153,9 @@ const Home = () => {
 
       <div className="form-outline mb-4">
         <input type="text" 
-        placeholder='Phone / Email' 
+        placeholder='Email' 
         className='inputs'
+        name='userEmail'
         onChange={(e) => setuserEmail(e.target.value)}
         />
       </div>
@@ -174,6 +164,7 @@ const Home = () => {
         <input type="password" 
           placeholder='Password' 
           className='inputs' 
+          name='userPassword'
           onChange={(e) => setuserPassword(e.target.value)}
           />
       </div>

@@ -8,6 +8,8 @@ const Registration = () => {
   const navigate=useNavigate();
   // vendor registration usestate.
   const [VendorsData, SetVendorsData] = useState({});
+ 
+
   // User registration usestate.
   const [UsersData, SetUsersData] = useState({});
 
@@ -57,7 +59,6 @@ const Registration = () => {
   }
 
 
-
   const formdata = new FormData();
   formdata.append("name", VendorsData.name);
   formdata.append("email", VendorsData.email);
@@ -79,7 +80,7 @@ const Registration = () => {
     .catch(error=>{
         console.log(error)
     })
-     
+
 
     // if(!name || !email || !contact || !password || !confirmPassword){
     //  return notifyA("Please add all the fields")
@@ -94,7 +95,7 @@ const Registration = () => {
     //  return notifyA("Password does not match")
 
     //  }
-    //  else 
+    //  else {
     //    return notifyB("Signed in successfull")
 
       }

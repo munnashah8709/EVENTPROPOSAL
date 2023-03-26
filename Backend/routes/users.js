@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 const User = mongoose.model("User")
 const jwt=require("jsonwebtoken")
 
+
 router.post('/usersignup', (req, res) => {
     const { name, email, password,contact } = req.body;
     if (!email || !password || !name ||!contact) {
@@ -67,9 +68,6 @@ bcrypt.compare(password,savedUser.password)
 }))
 })
 
-router.post('/userlogout', (req, res) => {
-    // remove the token from local storage or session storage on the client-side
-    res.json({ message: "Vendor logged out successfully" })
-})
+
 
 module.exports=router
