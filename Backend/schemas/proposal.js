@@ -37,7 +37,7 @@ food:{type:String},
 events:{type:String},
 postedBy:{
     type:ObjectId, 
-    ref:"VENDORS"
+    ref:"Vendor"
 }
 },{timestamps:true})
 

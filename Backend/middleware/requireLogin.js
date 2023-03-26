@@ -1,30 +1,25 @@
-const jwt=require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const User = mongoose.model("User");
+const Vendor = mongoose.model("Vendor");
 
-const mongoose=require('mongoose')
-const User=mongoose.model("User")
-const Vendor=mongoose.model("Vendor")
-
-module.exports=(req,res,next)=>{
-    const{authorization}=req.headers;
-    if(!authorization){
-       return res.status(401).json({error:"You must be logged in"}) 
-    }
-    const token=authorization.replace("Bearer ","")
-    jwt.verify(token,process.env.JWT_SECRET,(err,payload)=>{
-        if(err){
-           return res.status(401).json({error:"You must be logged in"})
-        }
-        const{_id}=payload;
-        User.findById(_id).then(userData=>{
-            req.user=userData
-
-        })
-        
-        Vendor.findById(_id).then(vendorData=>{
-            req.vendor=vendorData
-
-        })
-        next();
-    })
-   
-    }
+module.exports = async (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).json({ error: "You must be logged in" });
+  }
+  const token = authorization.replace("Bearer ", "");
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const { _id } = payload;
+    const [userData, vendorData] = await Promise.all([
+      User.findById(_id),
+      Vendor.findById(_id),
+    ]);
+    req.user = userData;
+    req.vendor = vendorData;
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: "You must be logged in" });
+  }
+};
