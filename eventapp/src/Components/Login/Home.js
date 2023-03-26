@@ -2,40 +2,88 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../style/home.css"
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Home = () => {
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
-
-  //toast function
-  const notifyA=(msg)=>toast.error(msg)
-  const notifyB=(msg)=>toast.success(msg)
-
-  
-  const emailRegex=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-  
+  //vendorlogin data
+  const [email, setemail]=useState("")
+  const [password, setpassword]=useState("")
 
 
+  // userlogin data
+  const [userEmail, setuserEmail]=useState("");
+  const [userPassword, setuserPassword]=useState("");
 
-  const data=()=>{
-    if(!email || !password){
-      notifyA("Please add all the fields")
-     }
-     else if(!emailRegex.test(email)){
-      notifyA("Invalid email")
-    
-     }else if(!passwordRegex.test(password)){
-      notifyA("The Password must be eight characters or longer,must contain at least 1 lowercase alphabetical character, must contain at least 1 uppercase alphabetical character, must contain at least 1 numeric character, must contain at least one special character")
- 
-     }else 
-      notifyB("Signed in successfull")
- 
-     
+
+  //displaying success message
+  const [Loginmessage,SetLoginmessage]=useState("");
+
+
+  const VendorLogin= async()=>{
+    const resp = await fetch("http://localhost:8080/vendorsignin", {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+          email,
+          password
+      })
+  })
+  const data = await resp.json();
+  console.log(data)
+
+  if (data.token) {
+    localStorage.setItem("jwt", data.token)
+    localStorage.setItem("Vendor", JSON.stringify(data.vendor))
+  }
+  if(data){
+    SetLoginmessage("login successfull")
+  }
   }
 
-    const navigate=useNavigate();
 
+  const UserLogin= async()=>{
+   console.log(userEmail,userPassword);
+   
+   axios.post("http://localhost:8080/usersignin",{
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      userEmail,
+      userPassword
+    })
+   }).then((res)=>{
+    console.log(res)
+   }).catch((err)=>{
+    console.log(err)
+   })
+
+  //  const res=  await fetch("http://localhost:8080/usersignin",{
+  //     method: 'POST',
+  //     headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       userEmail,
+  //       userPassword
+  //     })
+  //   })
+
+  }
+
+
+  
+
+
+
+
+    const navigate=useNavigate();
     const RegistrationPage=()=>{
       navigate("/Vendor")
     }
@@ -48,14 +96,17 @@ const Home = () => {
       navigate("/")
     }
 
-
+   
+   
+     
   return (
 <>
 <div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px"}}>
 <div className="tab-content" style={{padding:"20px", justifyContent:"center", width:"382px"}}  >
-
-
 {/* userbutton and vendor butoon */}
+
+<h2>{Loginmessage}</h2>
+
 <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
   <li className="nav-item" role="presentation">
     <a className="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
@@ -67,38 +118,25 @@ const Home = () => {
   </li>
 </ul>
 
-
-
 {/* vendor sigin form */}
+ 
 <div className="tab-content">
   <div className="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-    <form>
       <div>
         <p>Sign with Your Account</p>
       </div>
       <br></br>
-
       <div className="form-outline mb-4">
-        <input type="text" 
-        placeholder='Phone / Email' 
-        value={email} 
-        className='inputs' 
-        onChange={(e)=>{
-        setEmail(e.target.value)
-        }} />
+        <input type="text" placeholder='Phone / Email' className='inputs' name='email' onChange={(e) => setemail(e.target.value)} />
       </div>
-
       <div className="form-outline mb-4">
         <input type="password" 
          placeholder='Password' 
-         value={password}
          className='inputs' 
-         onChange={(e)=>{
-          setPassword(e.target.value)
-         }}/>
+         name='password'
+         onChange={(e) => setpassword(e.target.value)}
+         />
       </div>
-
-
       <div className="row mb-4">
         <div className="col-md-6 d-flex justify-content-center">
         </div>
@@ -106,50 +144,39 @@ const Home = () => {
           <a href="">Forgot password?</a>
         </div>
       </div>
-
       <div className="row mb-4">
-        <div className="col-md-6 d-flex justify-content-center" onClick={RegistrationPage} >Create Account</div>
+        <div className="col-md-6 d-flex justify-content-center" onClick={RegistrationPage}>Create Account</div>
         <div className="col-md-6 d-flex justify-content-center">
         <button type="submit"
-         className="btn btn-primary btn-block mb-4" onClick={()=>{data()}}>Sign in</button>
+         className="btn btn-primary btn-block mb-4" onClick={()=>{VendorLogin()}}>Sign in</button>
         </div>
       </div>
-    </form>
   </div>
+
 
 
 {/* user sigin form */}
   <div className="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-  <form>
-  <div>
+       <div>
         <p>Sign with Your Account</p>
       </div>
       <br></br>
 
       <div className="form-outline mb-4">
         <input type="text" 
-          value={email}
         placeholder='Phone / Email' 
         className='inputs'
-        onChange={(e)=>{
-          setEmail(e.target.value)
-        }}
-         />
-      </div>
-
- 
-      <div className="form-outline mb-4">
-        <input type="password" 
-          value={password} 
-          placeholder='Password' 
-          className='inputs' 
-      
-          onChange={(e)=>{
-          setPassword(e.target.value)
-        }}
+        onChange={(e) => setuserEmail(e.target.value)}
         />
       </div>
 
+      <div className="form-outline mb-4">
+        <input type="password" 
+          placeholder='Password' 
+          className='inputs' 
+          onChange={(e) => setuserPassword(e.target.value)}
+          />
+      </div>
 
       <div className="row mb-4">
         <div className="col-md-6 d-flex justify-content-center">
@@ -163,10 +190,9 @@ const Home = () => {
         <div className="col-md-6 d-flex justify-content-center"  onClick={RegistrationPage}>Create Account</div>
         <div className="col-md-6 d-flex justify-content-center">
         <button type="submit" 
-        className="btn btn-primary btn-block mb-4" onClick={()=>{data()}}>Sign in</button>
+        className="btn btn-primary btn-block mb-4" onClick={()=>{UserLogin()}}>Sign in</button>
         </div>
       </div>
-    </form>
   </div>
 </div>
 

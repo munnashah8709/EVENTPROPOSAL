@@ -36,7 +36,6 @@ router.post('/createProposal',requireLogin, async (req, res) => {
 })
 
 
-// fetch data
 router.get('/allProposal', requireLogin, async (req, res) => {
     try {
         const data = await proposalSchema.find({ postedBy: req.user._id }).populate('postedBy', "_id name");        
