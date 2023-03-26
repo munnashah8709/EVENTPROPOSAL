@@ -4,7 +4,7 @@ import "../style/home.css"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
- import party from '../../image/PartyImg.png'
+import party from '../../image/PartyImg.png'
 
 const Home = () => {
   //vendorlogin data
@@ -23,12 +23,19 @@ const Home = () => {
   const navigate=useNavigate();
 
   
-
+//toast function
+  const notifyA=(msg)=>toast.error(msg)
+  const notifyB=(msg)=>toast.success(msg)
 
 
   //Vendorlogin 
   const VendorLogin= async()=>{
+
+
+
     const resp = await fetch("http://localhost:8080/vendorsignin", {
+   
+      
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -39,15 +46,22 @@ const Home = () => {
           password
       })
   })
-  const data = await resp.json();
+
+ const data=await resp.json()
+
+  
+
   if (data.token) {
     localStorage.setItem("jwt", data.token)
     localStorage.setItem("Vendor", JSON.stringify(data.vendor))
   }
-  if(data){
-    SetLoginmessage("login successfull")
-    navigate("/Vendor_Dashboard")
+  if(!data.error){
+  notifyB("login successfull")
+  navigate("/Vendor_Dashboard")
+   
 
+  }else {
+    notifyA("Invalid Credentials")
   }
   }
 
@@ -65,13 +79,18 @@ const Home = () => {
       })
   })
   const datas = await response.json();
+
+ 
   if (datas.token) {
     localStorage.setItem("jwt", datas.token)
     localStorage.setItem("User", JSON.stringify(datas.user))
   }
-  if(datas){
-    SetLoginmessage("login successfull")
+  if(!datas.error){
+    notifyB("login successfull")
     navigate("/User_Dashboard")
+  }
+  else{
+    notifyA("Invalid Credentials")
   }
   }
 
@@ -94,7 +113,7 @@ const Home = () => {
      
   return (
 <>
-<div className='bgimg' style={{ backgroundImage: `url(${party})`}}>
+<div className='bgimg' style={{ backgroundImage: `url(${party}` ,height:"1200px",width:"100%"} }  >
 <div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px",}}>
 <div className="tab-content" style={{padding:"20px", justifyContent:"center", width:"382px"}}  >
 {/* userbutton and vendor butoon */}
