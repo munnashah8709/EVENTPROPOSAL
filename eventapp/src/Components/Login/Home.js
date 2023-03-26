@@ -4,6 +4,7 @@ import "../style/home.css"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
+
 import party from '../../image/PartyImg.png'
 
 const Home = () => {
@@ -26,7 +27,6 @@ const Home = () => {
 //toast function
   const notifyA=(msg)=>toast.error(msg)
   const notifyB=(msg)=>toast.success(msg)
-
 
   //Vendorlogin 
   const VendorLogin= async()=>{
@@ -108,9 +108,6 @@ const Home = () => {
       navigate("/")
     }
 
-   
-   
-     
   return (
 <>
 <div className='bgimg' style={{ backgroundImage: `url(${party}` ,height:"1200px",width:"100%"} }  >
@@ -215,8 +212,7 @@ const Home = () => {
 
   </div>
   </div>
-</div>
-      </>
+</>
   )
 }
 
