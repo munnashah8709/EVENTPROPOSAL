@@ -80,7 +80,7 @@ const Registration = () => {
         console.log(error)
     })
      
-
+    
     // if(!name || !email || !contact || !password || !confirmPassword){
     //  return notifyA("Please add all the fields")
     // }
