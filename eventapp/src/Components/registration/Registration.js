@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from "axios"
+import party from '../../image/PartyImg.png'
 
 
 const Registration = () => {
@@ -41,6 +42,10 @@ const Registration = () => {
   formdata1.append("password",UsersData.password)
 
   const UserRegFom=()=>{
+  if(UsersData.password!==UsersData.ConfirmPassword){
+    notifyA("Password does not match")
+  }
+  else 
     axios.post("http://localhost:8080/usersignup", formdata1,{
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -49,7 +54,7 @@ const Registration = () => {
         if(data.error){
     alert(data.error)
         }else{
-        alert("Register Successfull")
+      notifyB("Registered Successfull")
         navigate('/')}
     })
     .catch(error=>{
@@ -66,6 +71,11 @@ const Registration = () => {
   formdata.append("password",VendorsData.password)
   
   const VendorRegFom=()=>{
+  if(VendorsData.password!==VendorsData.ConfirmPassword){
+    notifyA("Password doesnot match")
+  }
+  
+  else 
     axios.post("http://localhost:8080/vendorsignup", formdata,{
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -74,29 +84,13 @@ const Registration = () => {
         if(data.error){
     alert(data.error)
         }else{
-          alert("Register Successfull")
+          notifyB("Registered Successfull")
         navigate('/')}
     })
     .catch(error=>{
         console.log(error)
     })
 
-
-    // if(!name || !email || !contact || !password || !confirmPassword){
-    //  return notifyA("Please add all the fields")
-    // }
-    // else if(!emailRegex.test(email)){
-    //  return notifyA("Invalid email")
-    
-    //  }else if(!passwordRegex.test(password)){
-    //  return notifyA("The Password must be eight characters or longer,must contain at least 1 lowercase alphabetical character, must contain at least 1 uppercase alphabetical character, must contain at least 1 numeric character, must contain at least one special character")
- 
-    //  }else if(password !==confirmPassword){
-    //  return notifyA("Password does not match")
-
-    //  }
-    //  else {
-    //    return notifyB("Signed in successfull")
 
       }
 
@@ -115,6 +109,7 @@ const Registration = () => {
   return (
     <div>
 
+<div className='bgimg' style={{ backgroundImage: `url(${party}` ,height:"1200px",width:"100%"} }  >
 <div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px"}}>
 <div className="tab-content" style={{padding:"20px", justifyContent:"center", width:"382px"}}  >
 
@@ -276,7 +271,10 @@ const Registration = () => {
   </div>
       
   </div>
+  </div>
   )
 }
 
 export default Registration
+
+

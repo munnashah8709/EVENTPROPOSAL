@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import VenodorDasbord from '../Components/Dashboard/VendorDashboard';
 import UserDeshboard from '../Components/Dashboard/UserDeshboard';
+import CreateProposal from '../Components/Proposals/CreateProposal';
 
 
 const Routing = () => {
@@ -19,6 +20,8 @@ const Routing = () => {
           <Route path="/Vendor" element={<Registration />} />
           <Route path="/User_Dashboard" element={<UserDeshboard />} />
           <Route path="/Vendor_Dashboard" element={<VenodorDasbord />} />
+          <Route path="/CreateProposal" element={<CreateProposal />} />
+          
 
         </Routes>
         <ToastContainer theme="dark"/>
