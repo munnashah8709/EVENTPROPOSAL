@@ -1,13 +1,20 @@
-.maincontainer{
-   width: 80%;
- margin-left: 10%;
- margin-top: 10px;
+.maincontainer {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10px;
 }
 
-#aa{
-    float: left;
+#aa {
+  float: left;
 }
-.pro{
-    margin-left: 5px;
-    margin-top: 8px;
+.pro {
+  margin-left: 5px;
+  margin-top: 8px;
+}
+
+#user-name {
+  font-weight: 600;
+  color: skyblue;
+  margin-right: 5px;
+  margin-top: 10px;
 }
