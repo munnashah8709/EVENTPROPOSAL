@@ -1,6 +1,9 @@
 .card-container {
+  width: 80%;
   margin-left: 10%;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns:repeat(5,minmax(150px,1fr));
+  grid-template-rows:repeat(3,minmax(150px,1fr));
 }
 
 #user-name {
@@ -27,3 +30,11 @@
 .card-title {
   margin-top: 0px;
 }
+
+/* @media (max-width: 1180px) {
+  .card-container {
+    margin-left: 100px;
+    grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+  }
+
+} */
