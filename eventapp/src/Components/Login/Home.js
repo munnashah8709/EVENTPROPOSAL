@@ -2,9 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../style/home.css"
 import { toast } from 'react-toastify';
-import axios from 'axios';
-
-
 import party from '../../image/PartyImg.png'
 
 const Home = () => {
@@ -212,8 +209,7 @@ const Home = () => {
 
   </div>
   </div>
+</div>
 </>
-  )
-}
-
+  )}
 export default Home
