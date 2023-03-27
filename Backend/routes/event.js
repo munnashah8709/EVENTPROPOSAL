@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require("mongoose")
 const proposalSchema = require('../schemas/proposal');
-const requireLogin=require("../middleware/requireLogin")
+const requireLogin=require("../middleware/requireLogin");
+const Vendor = mongoose.model("Vendor");
+const Proposal=mongoose.model("PROPOSAL");
+
 
 // posting data
 router.post('/createProposal',requireLogin, async (req, res) => {
@@ -15,11 +19,10 @@ router.post('/createProposal',requireLogin, async (req, res) => {
             })
         }
         else {
-            req.vendor
             const proposal = await proposalSchema.create({
                 eventName, place, proposalType, eventType, budget, date_from, date_to, description,
                 albums, food, events,
-                postedBy: req.user
+                postedBy: req.vendor
             });
             return res.status(200).json({
                 status: "success",
@@ -37,19 +40,15 @@ router.post('/createProposal',requireLogin, async (req, res) => {
 
 
 router.get('/allProposal', requireLogin, async (req, res) => {
-    try {
-        const data = await proposalSchema.find({ postedBy: req.user._id }).populate('postedBy', "_id name");        
-        return res.status(200).json({
-            status: "success",
-            data
-        })
-    }
-    catch (e) {
-        res.status(422).json({
-            status: "failure",
-            error: e.error,
-        })
-    }
+    Proposal.find()
+    .populate("postedBy","_id name") 
+    .sort('-createdAt')
+    .then(posts=>{
+         res.json({posts})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
 })
 
 // find on behalf of id
@@ -105,9 +104,10 @@ router.delete('/delete/:id', async (req, res) => {
     }
 })
 
-router.get('/findAllProposal',requireLogin, async(req,res)=>{
+    //finding all proposal listed in db
+router.get('/findAllProposal', async(req,res)=>{
     try {
-        const data = await proposalSchema.find().populate('postedBy')
+        const data = await proposalSchema.find().populate("postedBy") 
         res.status(200).json({
             data
         })
@@ -115,5 +115,18 @@ router.get('/findAllProposal',requireLogin, async(req,res)=>{
         res.status(400).send('Error in fetch proposals')
     }
 })
+
+//to fetch login vendor proposal
+router.get('/mypost',requireLogin,(req,res)=>{
+    Proposal.find({postedBy:req.vendor._id})
+    .populate("postedBy","_id name")
+    .then(mypost=>{
+        res.json({mypost})
+    })
+    .catch(err=>{
+        console.log(err)
+            })
+    })
+
 
 module.exports=router
