@@ -30,8 +30,6 @@ const UserDeshboard = () => {
 
   console.log(allevents)
 
-
-
   return (
     <>
       <nav className="navbar navbar-light bg-light">
