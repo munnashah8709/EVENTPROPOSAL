@@ -20,12 +20,13 @@ form {
     border-radius: 4px;
     box-sizing: border-box;
   }
-  
+/*   
   input[type="file"] {
     margin-bottom: 1rem;
-  }
+  } */
   
   button[type="submit"] {
+   margin-left: 40%;
     background-color: #4CAF50;
     color: white;
     padding: 0.5rem 1rem;
@@ -44,4 +45,20 @@ form {
     color: red;
     font-size: 0.8rem;
     margin-top: 0.5rem;
+  }
+
+
+  .C-proposal_container{
+    width: 70%;
+    margin-left: 15%;
+    border: 2px solid black;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  .imgcontainer{
+    padding: 10px;
+    border: 1px solid black;
+    height:auto;
+    width: 100%;
+    margin-top: 2px;
   }

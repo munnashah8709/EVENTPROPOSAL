@@ -1,111 +1,201 @@
-import React, { useState } from 'react'
-import './createProposal.css'
+import React, { useState } from "react";
+import "./createProposal.css";
+import logo from "../../image/logo.png"
 const CreateProposal = () => {
-  const [eventName, setEventName] = useState('');
-  const [place, setPlace] = useState('');
-  const [proposalType, setProposalType] = useState('');
-  const [eventType, setEventType] = useState('');
-  const [budget, setBudget] = useState('');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
-  const [description, setDescription] = useState('');
+  const [eventName, setEventName] = useState("");
+  const [place, setPlace] = useState("");
+  const [proposalType, setProposalType] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [budget, setBudget] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [description, setDescription] = useState("");
   const [albums, setAlbums] = useState([]);
-  const [food, setFood] = useState('');
-  const [events, setEvents] = useState('');
+  const [food, setFood] = useState("");
+  const [events, setEvents] = useState("");
 
-  const handleSubmit = () => {
 
-  }
+  const handleSubmit = () => {};
   return (
-   <>
-   <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="eventName">Event Name</label>
-        <input
-          type="text"
-          id="eventName"
-          value={eventName}
-          onChange={(event) => setEventName(event.target.value)}
-          required
-        />
-        <label htmlFor="">Place Of Event</label><br />
-        <select id="code-select" onChange={(e) => { setPlace(e.target.value) }} value={place}>
-          <option value="Select">Select</option>
-          <option value="Patna">Kanpur</option>
-          <option value="Ranchi">Lucknow</option>
-          <option value="Banglore">Agra</option>
-        </select>
-        <label htmlFor="">Proposal Type</label><br />
-        <select id="code-select" onChange={(e) => { setProposalType(e.target.value) }} value={proposalType}>
-          <option value="Select">Select</option>
-          <option value="Venue">Venue</option>
-        </select>
-        <label htmlFor="eventType">Event Type</label>
-        <input
-          type="text"
-          id="eventType"
-          value={eventType}
-          onChange={(event) => setEventType(event.target.value)}
-          required
-        />
-        <label htmlFor="budget">Budget</label>
-        <input
-          type="number"
-          id="budget"
-          placeholder='00000'
-          value={budget}
-          onChange={(event) => setBudget(event.target.value)}
-          required
-        />
-        <label htmlFor="dateFrom">Date From</label>
-        <input
-          type="date"
-          id="dateFrom"
-          value={dateFrom}
-          onChange={(event) => setDateFrom(event.target.value)}
-          required
-        />
-        <label htmlFor="dateTo">Date To</label>
-        <input
-          type="date"
-          id="dateTo"
-          value={dateTo}
-          onChange={(event) => setDateTo(event.target.value)}
-          required
-        />
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-        ></textarea>
-        <label htmlFor="albums">
-        </label>
-        <input
-          type="file"
-          id="albums"
-          multiple
-          onChange={(event) => setAlbums(event.target.files)}
-        />
-        <label htmlFor="food">Food</label>
-        <input
-          type="text"
-          id="food"
-          value={food}
-          onChange={(event) => setFood(event.target.value)}
-        />
-        <label htmlFor="events">Events</label>
-        <input
-          type="text"
-          id="events"
-          value={events}
-          onChange={(event) => setEvents(event.target.value)}
-        />
-        <button type="submit">Submit Proposal</button>
-      </form>
-    </div>
-   </>
-  );
-}
+    <>
+      <div className="C-proposal_container">
+        <div>
+          <h2 style={{ textAlign: "center" }}>Create Proposal</h2>
+        </div>
+        <hr></hr>
+        <div className="row">
+          <div className="col-5">
+            <div className="row" style={{ marginLeft: "20px" }}>
+              <label htmlFor="eventName">Event Name</label>
+              <input
+                type="text"
+                id="eventName"
+                value={eventName}
+                onChange={(event) => setEventName(event.target.value)}
+                required
+              />
+            </div>
 
-export default CreateProposal
+            <div className="row" style={{ marginLeft: "20px" }}>
+              <div className="col-6">
+                <label htmlFor="">Place Of Event</label>
+                <br />
+                <select
+                  id="code-select"
+                  onChange={(e) => {
+                    setPlace(e.target.value);
+                  }}
+                  value={place}
+                >
+                  <option value="Select">Select</option>
+                  <option value="Patna">Kanpur</option>
+                  <option value="Ranchi">Lucknow</option>
+                  <option value="Banglore">Agra</option>
+                </select>
+              </div>
+              <div className="col-1"></div>
+              <div className="col-5">
+                <label htmlFor="">Proposal Type</label>
+                <br />
+                <select
+                  id="code-select"
+                  onChange={(e) => {
+                    setProposalType(e.target.value);
+                  }}
+                  value={proposalType}
+                >
+                  <option value="Select">Select</option>
+                  <option value="Venue">Venue</option>
+                </select>
+              </div>
+            </div>
+            <br></br>
+
+            <div className="row" style={{ marginLeft: "20px" }}>
+              <div className="col-6">
+                <label htmlFor="eventType">Event Type</label>
+                <select
+                  id="code-select"
+                  onChange={(e) => {
+                    setEventType(e.target.value);
+                  }}
+                  value={place}
+                >
+                  <option value="Select">Select</option>
+                  <option value="Patna">Marriage</option>
+                  <option value="Ranchi">Birthday Party</option>
+                  <option value="Banglore">Seminar</option>
+                  <option value="Banglore">Engagement</option>
+                </select>
+              </div>
+
+              <div className="col-1"></div>
+
+              <div className="col-3">
+                <label htmlFor="budget">Budget</label>
+                <input
+                  type="number"
+                  id="budget"
+                  placeholder="00000"
+                  value={budget}
+                  onChange={(event) => setBudget(event.target.value)}
+                  required
+                  style={{ width: "100px", height: "26px" }}
+                />
+              </div>
+            </div>
+
+            <br></br>
+
+            <div className="row" style={{ marginLeft: "20px" }}>
+              <div className="col-3">
+                <label htmlFor="dateFrom">Date From</label>
+                <input
+                  type="date"
+                  id="dateFrom"
+                  value={dateFrom}
+                  onChange={(event) => setDateFrom(event.target.value)}
+                  required
+                />
+              </div>
+              <div className="col-3"></div>
+
+              <div className="col-3">
+                <label htmlFor="dateTo">Date To</label>
+                <input
+                  type="date"
+                  id="dateTo"
+                  value={dateTo}
+                  onChange={(event) => setDateTo(event.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            <br></br>
+
+
+            <div className="row" style={{ marginLeft: "20px" }}>
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              ></textarea>
+            </div>
+
+
+            <br></br>
+          </div>
+
+          <div className="col-1"></div>
+
+          <div class="col-5">
+            <div className="row">
+              <label htmlFor="albums"></label>
+              <input
+                type="file"
+                id="albums"
+                multiple
+                onChange={(event) => setAlbums(event.target.files)}
+              />
+            </div>
+
+            <div class="imgcontainer" >
+            <div class="card" style={{width:"50px", height:"50px"}}>
+                <img src={logo} alt=""></img>
+                </div>
+            </div>
+
+
+            <div className="row">
+              <label htmlFor="food">Food</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              ></textarea>
+            </div>
+
+            <div className="row">
+              <label htmlFor="events">Events</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              ></textarea>
+            </div>
+
+          </div>
+        </div>
+
+        <hr></hr>
+        <button type="submit">Submit Proposal</button>
+        <br></br>
+        <br></br>
+      </div>
+    </>
+  );
+};
+
+export default CreateProposal;
