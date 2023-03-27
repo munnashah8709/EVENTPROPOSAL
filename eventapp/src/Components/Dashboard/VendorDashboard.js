@@ -4,16 +4,25 @@ import profile_image from "../../image/profile_image.png";
 import { GrLogout } from "react-icons/gr";
 import { BsFillFunnelFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import { MdEdit } from "react-icons/md";
+import axios from 'axios';
+
 import "./vendor_Desbord.css";
-import axios from "axios";
+
 
 const VendorDashboard = () => {
   const [name, setName] = useState("");
   const [vendordetails, setvendordetails]=useState([])
+
   const navigate = useNavigate();
   const CreateNewProposal = () => {
     navigate("/CreateProposal");
   };
+
+  const Upadateproposal=()=>{
+    navigate("/editProposal/id")
+  }
 
   const vendorName = localStorage.getItem("Vendor");
   const V = JSON.parse(vendorName);
@@ -22,15 +31,28 @@ const VendorDashboard = () => {
     setName(V.name);
   }, []);
 
- useEffect(()=>{
- axios.get("http://localhost:8080/mypost").then((res)=>{
- setvendordetails(res.data)
 
- }).catch((err)=>{
-   console.log(err)
- })
+  useEffect(() => {
+    fetch("http://localhost:8080/mypost", {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("jwt")
+        }
+    }).then(res => res.json())
+        .then(result => {
+          setvendordetails(result.mypost)
+        })
+}, [])
 
- },[])
+const handleClick = (event, id) => {
+  console.log(id)
+  axios.delete(`http://localhost:8080/delete/${id}`)
+  .then(response => {
+    console.log(response);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+};
 
 
  console.log(vendordetails)
@@ -64,11 +86,11 @@ const VendorDashboard = () => {
       </nav>
 
       <div className="maincontainer">
-        <div class="navbar navbar-light bg-light">
-          <div id="aa" class="form-inline">
+        <div className="navbar navbar-light bg-light">
+          <div id="aa" className="form-inline">
             <p className="pro">PROPOSALS</p>
             <input
-              class="form-control mr-sm-2"
+              className="form-control mr-sm-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
@@ -76,7 +98,7 @@ const VendorDashboard = () => {
             />
             <button
               id="aaa"
-              class="btn btn-outline-success my-2 my-sm-0"
+              className="btn btn-outline-success my-2 my-sm-0"
               type="submit"
             >
               Search
@@ -87,7 +109,7 @@ const VendorDashboard = () => {
             <BsFillFunnelFill style={{ marginRight: "15px" }} />
             <button
               type="button"
-              class="btn btn-primary"
+              className="btn btn-primary"
               style={{ marginRight: "15px" }}
               onClick={CreateNewProposal}
             >
@@ -96,10 +118,45 @@ const VendorDashboard = () => {
           </div>
         </div>
 
-        <div className="vendetails">
-          <div className="card-body">This is some text within a card body.</div>
-        </div>
-      </div>
+  
+          {
+            vendordetails.map((details,key)=>{
+           return(
+            <div className="detailscard" key={key}>
+              <h4>{details.events}</h4>
+              <p>{details.description}</p>
+            <div className="row">
+            <div className="col">
+              <p>Event_Type</p>
+              {details.eventType}</div>
+            <div className="col">
+              <p>Proposal_Type</p>
+              {details.proposalType}</div>
+            <div className="col">
+              <p>Date_From</p>
+              {details.date_from}</div>
+            <div className="col">
+              <p>Date_To</p>
+              {details.date_to}
+              </div>
+            <div className="col">
+              <p>Buget</p>
+              {details.budget}
+              </div>
+            <div className="col">
+        
+            <div style={{float:"right",marginRight:"30px"}}><MdEdit style={{height:"25px", width:"25px"}} onClick={Upadateproposal}/></div>
+            <div style={{float:"right", marginRight:"30px",}}><RiDeleteBin6Fill style={{height:"25px", width:"25px"}} onClick={event => handleClick(event, details.postedBy._id)} /> </div>
+            
+            </div>
+         </div>
+         </div>
+           )
+            
+            })
+          }
+         </div>
+
     </>
   );
 };
