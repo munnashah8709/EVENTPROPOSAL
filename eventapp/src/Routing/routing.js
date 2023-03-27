@@ -21,6 +21,7 @@ const Routing = () => {
           <Route path="/User_Dashboard" element={<UserDeshboard />} />
           <Route path="/Vendor_Dashboard" element={<VenodorDasbord />} />
           <Route path="/CreateProposal" element={<CreateProposal />} />
+          <Route path="/editProposal/id" element={<CreateProposal />} />
           
 
         </Routes>
