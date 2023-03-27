@@ -4,6 +4,7 @@ import profile_image from "../../image/profile_image.png";
 import { GrLogout } from 'react-icons/gr';
 import {BsFillFunnelFill} from "react-icons/bs"
 import { useNavigate } from "react-router-dom";
+import "./vendor_Desbord.css"
 
 const VendorDashboard = () => {
   const [name,setName]=useState("")
@@ -51,31 +52,28 @@ const navigate=useNavigate()
         </div>
       </nav>
 
-      <div>
-      <nav class="navbar navbar-light bg-light">
-  <form class="form-inline">
-    <p style={{marginLeft:"30px",marginTop:"8px"}}>PROPOSALS</p>
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{marginLeft:"20px"}}/>
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-   
-  </form>
 
-  <div className="form-inline">
-  <BsFillFunnelFill style={{marginRight:"15px"}}/>
-  <button type="button" class="btn btn-primary" style={{marginRight:"15px"}} onClick={CreateNewProposal}>Create</button>
-  
-   
+<div className="maincontainer">
+   <div class="navbar navbar-light bg-light">
+         <div id="aa" class="form-inline" >
+          <p className="pro">PROPOSALS</p>
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{marginLeft:"20px"}}/>
+          <button id="aaa" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </div>
 
+     <div className="form-inline">
+        <BsFillFunnelFill style={{marginRight:"15px"}}/>
+         <button type="button" class="btn btn-primary" style={{marginRight:"15px"}} onClick={CreateNewProposal}>Create</button>
     </div>
-</nav>
-<div>
-<div class="card">
+   </div>
+
+   <div class="card">
   <div class="card-body">
     This is some text within a card body.
   </div>
+   </div>
+
 </div>
-</div>
-      </div>
     </>
   );
 };

@@ -27,12 +27,7 @@ const Home = () => {
 
   //Vendorlogin 
   const VendorLogin= async()=>{
-
-
-
     const resp = await fetch("http://localhost:8080/vendorsignin", {
-   
-      
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -43,11 +38,7 @@ const Home = () => {
           password
       })
   })
-
  const data=await resp.json()
-
-  
-
   if (data.token) {
     localStorage.setItem("jwt", data.token)
     localStorage.setItem("Vendor", JSON.stringify(data.vendor))
@@ -56,7 +47,6 @@ const Home = () => {
   notifyB("login successfull")
   navigate("/Vendor_Dashboard")
    
-
   }else {
     notifyA("Invalid Credentials")
   }
@@ -76,8 +66,6 @@ const Home = () => {
       })
   })
   const datas = await response.json();
-
- 
   if (datas.token) {
     localStorage.setItem("jwt", datas.token)
     localStorage.setItem("User", JSON.stringify(datas.user))
@@ -91,8 +79,6 @@ const Home = () => {
   }
   }
 
-
-    
     const RegistrationPage=()=>{
       navigate("/Vendor")
     }
@@ -204,12 +190,14 @@ const Home = () => {
       </div>
   </div>
 </div>
-
-
-
   </div>
   </div>
-</div>
+  
+  </div>
+
+
 </>
+
+
   )}
 export default Home
