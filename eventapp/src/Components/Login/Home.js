@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../style/home.css"
 import { toast } from 'react-toastify';
-import axios from 'axios';
-
 import party from '../../image/PartyImg.png'
 
 const Home = () => {
@@ -22,10 +20,10 @@ const Home = () => {
 
   const navigate=useNavigate();
 
+  
 //toast function
   const notifyA=(msg)=>toast.error(msg)
   const notifyB=(msg)=>toast.success(msg)
-
 
   //Vendorlogin 
   const VendorLogin= async()=>{
@@ -94,7 +92,7 @@ const Home = () => {
     }
 
   return (
-
+<>
 <div className='bgimg' style={{ backgroundImage: `url(${party}` ,height:"1200px",width:"100%"} }  >
 <div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px",}}>
 <div className="tab-content" style={{padding:"20px", justifyContent:"center", width:"382px"}}  >
@@ -195,11 +193,11 @@ const Home = () => {
   </div>
   </div>
   
-
-
   </div>
-  )
 
-  }
 
-export default Home;
+</>
+
+
+  )}
+export default Home
