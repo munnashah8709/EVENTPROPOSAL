@@ -7,38 +7,43 @@ const jwt=require("jsonwebtoken")
 
 
 router.post('/usersignup', (req, res) => {
-    const { name, email, password,contact } = req.body;
-    if (!email || !password || !name ||!contact) {
-        return res.status(422).json({ error: "please add all the field" })
+    const { name, email, password, contact } = req.body;
+    if (!email || !password || !name || !contact) {
+        return res.status(422).json({ error: "Please fill in all the required fields." })
     }
     User.findOne({ email: email })
-        .then((savedUser => {
+        .then(savedUser => {
             if (savedUser) {
-                return res.status(422).json({ error: "User already existed with this email" })
-
+                return res.status(422).json({ error: "A user already exists with this email address." })
             }
-            bcrypt.hash(password, 12)
-                .then(hashedpassword => {
-                    const user = new User({
-                        email,
-                        password:hashedpassword,
-                        name,
-                        contact
-                    })
-                    user.save()
-                        .then(user => {
-                            res.json({ message: "Saved data Sucessfully" })
-                        })
-                        .catch(err => {
-                            console.log(err)
+            User.findOne({ contact: contact })
+                .then(existingUser => {
+                    if (existingUser) {
+                        return res.status(422).json({ error: "A user already exists with this phone number." })
+                    }
+                    bcrypt.hash(password, 12)
+                        .then(hashedpassword => {
+                            const user = new User({
+                                email,
+                                password:hashedpassword,
+                                name,
+                                contact
+                            })
+                            user.save()
+                                .then(user => {
+                                    res.json({ message: "Data saved successfully." })
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
                         })
                 })
-
-        }))
+        })
         .catch(err => {
             console.log(err)
         })
 })
+
 
 router.post('/usersignin',(req,res)=>{
     const{email,password}=req.body
