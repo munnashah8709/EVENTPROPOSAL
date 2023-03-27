@@ -105,7 +105,7 @@ router.delete('/delete/:id', async (req, res) => {
     }
 })
 
-router.get('/findAllProposal',requireLogin, async(req,res)=>{
+router.get('/findAllProposal',async(req,res)=>{
     try {
         const data = await proposalSchema.find().populate('postedBy')
         res.status(200).json({
