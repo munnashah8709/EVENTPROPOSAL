@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./createProposal.css";
-import logo from "../../image/logo.png"
+
 const CreateProposal = () => {
   const hiddenInputFile = useRef(null);
   const [image, setImage] = useState([]);
@@ -14,8 +15,59 @@ const CreateProposal = () => {
   const [description, setDescription] = useState("");
   const [food, setFood] = useState("");
   const [events, setEvents] = useState("");
+  const [url, setUrl] = useState("");
+const navigate =useNavigate()
+  useEffect(()=>{
+    if(url){
+      fetch("http://localhost:8080/createProposal",{
+        method:"post",
+        headers:{"Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+           },
+        body:JSON.stringify({
+          eventName: eventName,
+        place:place,
+        proposalType:proposalType,
+        eventType:eventType,
+        budget:budget,
+        date_from:dateFrom,
+        date_to:dateTo,
+        description:description,
+        albums:url,
+        food:food,
+        events:events,
+        })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        if(data.error){
+    alert(data.error)
+        }else{
+        alert("post saved")
+        navigate("/Vendor_Dashboard")
+      }
+    })
+    .catch(error=>{
+        console.log(error)
+    })
 
-  
+    }
+    },[url])
+  const postImage=()=>{
+    const data=new FormData();
+    data.append("file",image);
+    data.append("upload_preset","Event-Proposal");
+    data.append("cloud_name","dfqxuq3qn");
+    fetch("https://api.cloudinary.com/v1_1/dfqxuq3qn/image/upload",{
+        method:"post",
+        body:data
+    })
+    .then(res=>res.json())
+    .then(data=>{setUrl(data.url)})
+    .catch(error=>{console.log(error)})
+
+}
+
   
   const loadfile = (event) => {
     var output = document.getElementById('output');
@@ -30,12 +82,12 @@ const CreateProposal = () => {
   }
 
 
-  const handleSubmit =() => {
+  // const handleSubmit =() => {
 
     
 
 
-  };
+  // };
 
 
 
@@ -103,7 +155,7 @@ const CreateProposal = () => {
                   onChange={(e) => {
                     setEventType(e.target.value);
                   }}
-                  value={place}
+                  value={eventType}
                 >
                   <option value="Select">Select</option>
                   <option value="Marriage">Marriage</option>
@@ -147,8 +199,7 @@ const CreateProposal = () => {
                 />
               </div>
             </div>
-
-            <br></br>
+ <br></br>
 
 
             <div className="row" style={{ marginLeft: "20px" }}>
@@ -169,7 +220,7 @@ const CreateProposal = () => {
           <div class="col-5">
             <div className="row">
               <label htmlFor="albums" onClick={handleclick}>Add</label>
-              <input id="output" className="fileinp" multiple type="file" accept="image/*" onChange={(e) => { loadfile(e); setImage(e.target.files) }} ref={hiddenInputFile} style={{ display: "none" }} />
+              <input id="output" className="fileinp" multiple type="file" accept="image/*" onChange={(e) => { loadfile(e); setImage(e.target.files[0]) }} ref={hiddenInputFile} style={{ display: "none" }} />
             </div>
           
             <div class="imgcontainer">
@@ -202,7 +253,7 @@ const CreateProposal = () => {
         </div>
 
         <hr></hr>
-        <button type="submit" style={{marginLeft:"40%"}} >Submit Proposal</button>
+        <button type="submit" style={{marginLeft:"40%"}} onClick={()=>postImage()}>Submit Proposal</button>
         <br></br>
         <br></br>
       </div>
