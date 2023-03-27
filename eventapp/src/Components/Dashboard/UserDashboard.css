@@ -1,0 +1,29 @@
+.card-container {
+  margin-left: 10%;
+  margin-top: 20px;
+}
+
+#user-name {
+  font-weight: 600;
+  color: skyblue;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.card {
+  width: 12rem;
+}
+
+#proposals-title {
+  font-weight: 600;
+  color: grey;
+}
+
+.card-body {
+  border: 1px solid #cccccc;
+  height: 125px;
+}
+
+.card-title {
+  margin-top: 0px;
+}
