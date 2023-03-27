@@ -26,7 +26,6 @@ form {
   } */
   
   button[type="submit"] {
-   margin-left: 40%;
     background-color: #4CAF50;
     color: white;
     padding: 0.5rem 1rem;
@@ -62,3 +61,6 @@ form {
     width: 100%;
     margin-top: 2px;
   }
+  
+
+  
