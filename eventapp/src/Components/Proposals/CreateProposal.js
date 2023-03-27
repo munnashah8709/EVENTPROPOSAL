@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./createProposal.css";
 import logo from "../../image/logo.png"
 const CreateProposal = () => {
+  const hiddenInputFile = useRef(null);
+  const [image, setImage] = useState([]);
   const [eventName, setEventName] = useState("");
   const [place, setPlace] = useState("");
   const [proposalType, setProposalType] = useState("");
@@ -10,12 +12,34 @@ const CreateProposal = () => {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [description, setDescription] = useState("");
-  const [albums, setAlbums] = useState([]);
   const [food, setFood] = useState("");
   const [events, setEvents] = useState("");
 
+  
+  
+  const loadfile = (event) => {
+    var output = document.getElementById('output');
+    var imgs = output.files.length;
+  for (let i = 0; i < imgs; i++) {
+      var urls = URL.createObjectURL(event.target.files[i]);
+      document.getElementById("galeria").innerHTML += '<img src="' + urls + '">';
+    }
+  }
+  const handleclick = () => {
+    hiddenInputFile.current.click()
+  }
 
-  const handleSubmit = () => {};
+
+  const handleSubmit =() => {
+
+    
+
+
+  };
+
+
+
+
   return (
     <>
       <div className="C-proposal_container">
@@ -82,10 +106,10 @@ const CreateProposal = () => {
                   value={place}
                 >
                   <option value="Select">Select</option>
-                  <option value="Patna">Marriage</option>
-                  <option value="Ranchi">Birthday Party</option>
-                  <option value="Banglore">Seminar</option>
-                  <option value="Banglore">Engagement</option>
+                  <option value="Marriage">Marriage</option>
+                  <option value="Birthday Party">Birthday Party</option>
+                  <option value="Seminar">Seminar</option>
+                  <option value="Engagement">Engagement</option>
                 </select>
               </div>
 
@@ -93,15 +117,7 @@ const CreateProposal = () => {
 
               <div className="col-3">
                 <label htmlFor="budget">Budget</label>
-                <input
-                  type="number"
-                  id="budget"
-                  placeholder="00000"
-                  value={budget}
-                  onChange={(event) => setBudget(event.target.value)}
-                  required
-                  style={{ width: "100px", height: "26px" }}
-                />
+                <input type="number" placeholder="00000" onChange = {(e)=>{setBudget(e.target.value)}} value={budget}/>
               </div>
             </div>
 
@@ -140,7 +156,7 @@ const CreateProposal = () => {
               <textarea
                 id="description"
                 value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                onChange={(event) =>setDescription(event.target.value)}
               ></textarea>
             </div>
 
@@ -152,28 +168,24 @@ const CreateProposal = () => {
 
           <div class="col-5">
             <div className="row">
-              <label htmlFor="albums"></label>
-              <input
-                type="file"
-                id="albums"
-                multiple
-                onChange={(event) => setAlbums(event.target.files)}
-              />
+              <label htmlFor="albums" onClick={handleclick}>Add</label>
+              <input id="output" className="fileinp" multiple type="file" accept="image/*" onChange={(e) => { loadfile(e); setImage(e.target.files) }} ref={hiddenInputFile} style={{ display: "none" }} />
             </div>
-
-            <div class="imgcontainer" >
-            <div class="card" style={{width:"50px", height:"50px"}}>
-                <img src={logo} alt=""></img>
-                </div>
+          
+            <div class="imgcontainer">
+            <div class="card"  id="galeria" style={{width:"50px", height:"50px"}}>
+            <img  style={{width:"50px", height:"50px"}} src={require("../../image/logo.png")} alt=""></img>
             </div>
+          </div>
+           
 
 
             <div className="row">
               <label htmlFor="food">Food</label>
               <textarea
                 id="description"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                value={food}
+                onChange={(event) => setFood(event.target.value)}
               ></textarea>
             </div>
 
@@ -181,8 +193,8 @@ const CreateProposal = () => {
               <label htmlFor="events">Events</label>
               <textarea
                 id="description"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                value={events}
+                onChange={(event) =>setEvents(event.target.value)}
               ></textarea>
             </div>
 
@@ -190,7 +202,7 @@ const CreateProposal = () => {
         </div>
 
         <hr></hr>
-        <button type="submit">Submit Proposal</button>
+        <button type="submit" style={{marginLeft:"40%"}} >Submit Proposal</button>
         <br></br>
         <br></br>
       </div>
