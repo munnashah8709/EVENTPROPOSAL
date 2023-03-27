@@ -5,9 +5,11 @@ import { GrLogout } from "react-icons/gr";
 import { BsFillFunnelFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "./vendor_Desbord.css";
+import axios from "axios";
 
 const VendorDashboard = () => {
   const [name, setName] = useState("");
+  const [vendordetails, setvendordetails]=useState([])
   const navigate = useNavigate();
   const CreateNewProposal = () => {
     navigate("/CreateProposal");
@@ -19,6 +21,20 @@ const VendorDashboard = () => {
   useEffect(() => {
     setName(V.name);
   }, []);
+
+ useEffect(()=>{
+ axios.get("http://localhost:8080/mypost").then((res)=>{
+ setvendordetails(res.data)
+
+ }).catch((err)=>{
+   console.log(err)
+ })
+
+ },[])
+
+
+ console.log(vendordetails)
+
 
   return (
     <>
@@ -80,8 +96,8 @@ const VendorDashboard = () => {
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-body">This is some text within a card body.</div>
+        <div className="vendetails">
+          <div className="card-body">This is some text within a card body.</div>
         </div>
       </div>
     </>
