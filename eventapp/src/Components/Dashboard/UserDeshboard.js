@@ -109,6 +109,7 @@ const imageClick=(e)=>{
      {
       allevents.map((allval, key)=>{
          return (
+        
 
           <div className="card" key={key} style={{marginLeft:"10px", marginTop:"20px"}} >
           <img src={allval.albums[0]} className="card-img-top" alt="" onClick={imageClick} style={{height:"150px",width:"191px"}}/>
@@ -121,7 +122,10 @@ const imageClick=(e)=>{
             <p className="price">Rs. {allval.budget}</p>
             <p className="place">{allval.place}</p>
           </div>
+
         </div>
+        </div>
+
          )
       })
      }

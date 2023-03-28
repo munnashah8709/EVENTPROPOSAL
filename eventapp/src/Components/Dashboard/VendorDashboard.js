@@ -20,8 +20,8 @@ const VendorDashboard = () => {
     navigate("/CreateProposal");
   };
 
-  const Upadateproposal=()=>{
-    navigate("/editProposal/id")
+  const Upadateproposal=(e, updatedetails)=>{
+    navigate("/editProposal/id",  {state:{updatedetails}})
   }
 
   const vendorName = localStorage.getItem("Vendor");
@@ -44,7 +44,6 @@ const VendorDashboard = () => {
 }, [])
 
 const handleClick = (event, id) => {
-  console.log(id)
   axios.delete(`http://localhost:8080/delete/${id}`)
   .then(response => {
     console.log(response);
@@ -52,6 +51,9 @@ const handleClick = (event, id) => {
   .catch(error => {
     console.log(error);
   });
+
+  window.location.reload(false);
+
 };
 
 
@@ -150,7 +152,7 @@ const handleClick = (event, id) => {
               </div>
             <div className="col">
         
-            <div style={{float:"right",marginRight:"30px"}}><MdEdit style={{height:"25px", width:"25px"}} onClick={Upadateproposal}/></div>
+            <div style={{float:"right",marginRight:"30px"}}><MdEdit style={{height:"25px", width:"25px"}} onClick={event =>Upadateproposal(event, details)}/></div>
             <div style={{float:"right", marginRight:"30px",}}><RiDeleteBin6Fill style={{height:"25px", width:"25px"}} onClick={event => handleClick(event, details._id)} /> </div>
             
             </div>
