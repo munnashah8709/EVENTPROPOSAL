@@ -73,11 +73,6 @@ const navigate =useNavigate()
 
 }
 
-  
-
-const aaa=location.state.updatedetails;
-console.log(aaa)
-
 
 useEffect(()=>{
     setEventName(location.state.updatedetails.eventName);
@@ -90,11 +85,7 @@ useEffect(()=>{
     setPlace(location.state.updatedetails.place);
     setProposalType(location.state.updatedetails.proposalType);
     setEventType(location.state.updatedetails.eventType);
-    setImage(location.state.updatedetails.albums)
-
-    
-
-
+    setImage(location.state.updatedetails.albums[0])
 
 },[])
 

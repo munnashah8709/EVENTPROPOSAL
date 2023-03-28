@@ -51,9 +51,7 @@ const handleClick = (event, id) => {
   .catch(error => {
     console.log(error);
   });
-
   window.location.reload(false);
-
 };
 
 
@@ -85,7 +83,6 @@ const handleClick = (event, id) => {
             style={{ marginRight: "15px", width: "30px", height: "30px"
             }}
             onClick={()=>{
-              localStorage.clear()
               navigate("/")
             }}
           />
