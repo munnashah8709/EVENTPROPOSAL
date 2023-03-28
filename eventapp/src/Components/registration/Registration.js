@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import axios from "axios"
 import party from '../../image/PartyImg.png'
+import "../style/registration.css"
 
 
 const Registration = () => {
@@ -110,7 +111,7 @@ const Registration = () => {
     <div>
 
 <div className='bgimg' style={{ backgroundImage: `url(${party}` ,height:"1200px",width:"100%"} }  >
-<div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px"}}>
+<div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"grey", marginTop:"150px", marginRight:"200px",color:"black",borderRadius:"5px"}}>
 <div className="tab-content" style={{padding:"20px", justifyContent:"center", width:"382px"}}  >
 
 {/* userbutton and vendor butoon */}
@@ -186,7 +187,7 @@ const Registration = () => {
       
       <div className="row mb-4">
         <div className="col-md-6 d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary btn-block mb-4" onClick={backTologin} >sing in</button>
+        <button type="submit" className="btn btn-primary btn-block mb-4" onClick={backTologin} >Sign In</button>
         </div>
         <div className="col-md-6 d-flex justify-content-center">
         <button type="submit" 
@@ -200,7 +201,7 @@ const Registration = () => {
 {/* user Registration form */}
   <div className="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
       <div>
-       <p>Registar In Your Account</p>     
+       <p>Register In Your Account</p>     
     </div>
     <br> 
     </br>
@@ -255,7 +256,7 @@ const Registration = () => {
       
       <div className="row mb-4">
         <div className="col-md-6 d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary btn-block mb-4" onClick={backTologin} >sing in</button>
+        <button type="submit" className="btn btn-primary btn-block mb-4" onClick={backTologin} >sign in</button>
         </div>
         <div className="col-md-6 d-flex justify-content-center">
         <button type="submit" 

@@ -16,6 +16,40 @@ const CreateProposal = () => {
   const [food, setFood] = useState("");
   const [events, setEvents] = useState("");
   const [url, setUrl] = useState("");
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (url) {
+      fetch("http://localhost:8080/createProposal", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer" + localStorage.getItem("jwt"),
+        },
+
+        body: JSON.stringify({
+          eventName: eventName,
+          place: place,
+          proposalType: proposalType,
+          eventType: eventType,
+          budget: budget,
+          date_from: dateFrom,
+          date_to: dateTo,
+          description: description,
+          albums: url,
+          food: food,
+          events: events,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            alert(data.error);
+          } else {
+            alert("post saved");
+            navigate("/Vendor_Dashboard");
+          }
+
 const navigate =useNavigate()
   useEffect(()=>{
     if(url){
@@ -36,59 +70,71 @@ const navigate =useNavigate()
         albums:url,
         food:food,
         events:events,
+
         })
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        if(data.error){
-    alert(data.error)
-        }else{
-        alert("post saved")
-        navigate("/Vendor_Dashboard")
-      }
-    })
-    .catch(error=>{
-        console.log(error)
-    })
-
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    },[url])
-  const postImage=()=>{
-    const data=new FormData();
-    data.append("file",image);
-    data.append("upload_preset","Event-Proposal");
-    data.append("cloud_name","dfqxuq3qn");
-    fetch("https://api.cloudinary.com/v1_1/dfqxuq3qn/image/upload",{
-        method:"post",
-        body:data
+  }, [url]);
+  const postImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "Event-Proposal");
+    data.append("cloud_name", "dfqxuq3qn");
+    fetch("https://api.cloudinary.com/v1_1/dfqxuq3qn/image/upload", {
+      method: "post",
+      body: data,
     })
-    .then(res=>res.json())
-    .then(data=>{setUrl(data.url)})
-    .catch(error=>{console.log(error)})
+      .then((res) => res.json())
+      .then((data) => {
+        setUrl(data.url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-}
-
-  
   const loadfile = (event) => {
-    var output = document.getElementById('output');
+    var output = document.getElementById("output");
     var imgs = output.files.length;
-  for (let i = 0; i < imgs; i++) {
+    for (let i = 0; i < imgs; i++) {
       var urls = URL.createObjectURL(event.target.files[i]);
-      document.getElementById("galeria").innerHTML += '<img src="' + urls + '">';
+      document.getElementById("galeria").innerHTML +=
+        '<img src="' + urls + '">';
     }
-  }
+  };
   const handleclick = () => {
+
+    hiddenInputFile.current.click();
+}
     hiddenInputFile.current.click()
   }
 
 
+
+  const BacktoVendorDashbord = () => {
+    navigate("/Vendor_Dashboard");
+  };
+
   return (
     <>
       <div className="C-proposal_container">
+
+        <div className="title">
+          <h2>CREATE PROPOSAL</h2>
+          <div>
+            <h1
+              style={{ float: "right", marginTop: "-57px", marginRight: "5px" }}
+            >
+              <ImCancelCircle onClick={BacktoVendorDashbord} />
+            </h1>
+          </div>
+
         <div>
           <h2 style={{ textAlign: "center" }}>Create Proposal</h2>
+
         </div>
-        <hr></hr>
         <div className="row">
           <div className="col-5">
             <div className="row" style={{ marginLeft: "20px" }}>
@@ -159,7 +205,14 @@ const navigate =useNavigate()
 
               <div className="col-3">
                 <label htmlFor="budget">Budget</label>
-                <input type="number" placeholder="00000" onChange = {(e)=>{setBudget(e.target.value)}} value={budget}/>
+                <input
+                  type="number"
+                  placeholder="00000"
+                  onChange={(e) => {
+                    setBudget(e.target.value);
+                  }}
+                  value={budget}
+                />
               </div>
             </div>
 
@@ -189,26 +242,59 @@ const navigate =useNavigate()
                 />
               </div>
             </div>
- <br></br>
-
+            <br></br>
 
             <div className="row" style={{ marginLeft: "20px" }}>
               <label htmlFor="description">Description</label>
               <textarea
                 id="description"
                 value={description}
-                onChange={(event) =>setDescription(event.target.value)}
+                onChange={(event) => setDescription(event.target.value)}
               ></textarea>
             </div>
-
 
             <br></br>
           </div>
 
           <div className="col-1"></div>
 
-          <div class="col-5">
+          <div className="col-5">
             <div className="row">
+
+              <div className="pic">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleclick}
+                  style={{
+                 
+                    width: "100px",
+                    float: "right",
+                    color: "black",
+                    backgroundColor: "  #4caf50",
+                 
+                  }}
+                
+                >
+               
+                  Add Image
+                </button>
+              </div>
+
+              <input
+                id="output"
+                className="fileinp"
+                multiple
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  loadfile(e);
+                  setImage(e.target.files[0]);
+                }}
+                ref={hiddenInputFile}
+                style={{ display: "none" }}
+              />
+
               <label htmlFor="albums" onClick={handleclick}>Add</label>
               <input id="output" className="fileinp" multiple type="file" accept="image/*" onChange={(e) => { loadfile(e); setImage(e.target.files[0]) }} ref={hiddenInputFile} style={{ display: "none" }} />
             </div>
@@ -216,14 +302,33 @@ const navigate =useNavigate()
             <div class="imgcontainer">
             <div class="card"  id="galeria" style={{width:"50px", height:"50px"}}>
             <img  style={{width:"50px", height:"50px"}} src={require("../../image/logo.png")} alt=""></img>
-            </div>
-          </div>
-           
 
+            </div>
+
+            {/* image */}
+
+            <div className="imgcontainer">
+              <div
+                className="card"
+                id="galeria"
+                style={{ width: "50px", height: "50px"  }}
+              >
+                <img
+                  className="pic"
+                  style={{ width: "50px", height: "50px",float:"right" }}
+                  src={require("../../image/logo.png")}
+                  alt=""
+                ></img>
+              </div>
+            </div>
 
             <div className="row">
               <label htmlFor="food">Food</label>
               <textarea
+
+                style={{ height: "150px" }}
+
+
                 id="description"
                 value={food}
                 onChange={(event) => setFood(event.target.value)}
@@ -233,18 +338,30 @@ const navigate =useNavigate()
             <div className="row">
               <label htmlFor="events">Events</label>
               <textarea
+
+                style={{ height: "150px" }}
+
                 id="description"
                 value={events}
-                onChange={(event) =>setEvents(event.target.value)}
+                onChange={(event) => setEvents(event.target.value)}
               ></textarea>
             </div>
-
           </div>
         </div>
 
         <hr></hr>
+
+        <button
+          type="submit"
+          style={{ marginLeft: "40%", marginBottom: "15px" }}
+          onClick={() => postImage()}
+        >
+          Submit Proposal
+        </button>
+
         <button type="submit" style={{marginLeft:"40%"}} onClick={()=>postImage()}>Submit Proposal</button>
         <br></br>
+
         <br></br>
       </div>
     </>
