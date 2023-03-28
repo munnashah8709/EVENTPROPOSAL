@@ -82,16 +82,6 @@ const navigate =useNavigate()
   }
 
 
-  // const handleSubmit =() => {
-
-    
-
-
-  // };
-
-
-
-
   return (
     <>
       <div className="C-proposal_container">
@@ -176,7 +166,7 @@ const navigate =useNavigate()
             <br></br>
 
             <div className="row" style={{ marginLeft: "20px" }}>
-              <div className="col-3">
+              <div className="col-4">
                 <label htmlFor="dateFrom">Date From</label>
                 <input
                   type="date"

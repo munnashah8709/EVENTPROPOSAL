@@ -24,17 +24,10 @@ const UserDeshboard = () => {
   const vendorName = localStorage.getItem("SelectedDetails");
   const selectedEvents = JSON.parse(vendorName);
 
-  console.log(selectedEvents.eventName)
-
-
-
-  
 const imageClick=(e)=>{
   navigate("/proposalsDetails",{state:{e}})
 }
  
-
-
   useEffect(()=>{
     axiox.get("http://localhost:8080/findAllProposal").then((res)=>{
     setallevents(res.data.data)
@@ -70,7 +63,6 @@ const imageClick=(e)=>{
           <GrLogout
             style={{ marginRight: "15px", width: "20px", height: "20px" }}
             onClick={()=>{
-              localStorage.clear()
               navigate("/")
             }}
           />
