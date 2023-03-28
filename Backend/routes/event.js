@@ -8,7 +8,7 @@ const Proposal=mongoose.model("PROPOSAL");
 
 
 // posting data
-router.post('/createProposal',requireLogin, async (req, res) => {
+router.post('/createProposal', async (req, res) => {
     try {
         const { eventName, place, proposalType, eventType, budget, date_from, date_to, description,
             albums, food, events } = req.body;        
@@ -39,7 +39,7 @@ router.post('/createProposal',requireLogin, async (req, res) => {
 })
 
 
-router.get('/allProposal', requireLogin, async (req, res) => {
+router.get('/allProposal', async (req, res) => {
     Proposal.find()
     .populate("postedBy","_id name") 
     .sort('-createdAt')
