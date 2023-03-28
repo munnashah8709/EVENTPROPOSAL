@@ -168,6 +168,10 @@ const imageClick=()=>{
           />
           <GrLogout
             style={{ marginRight: "15px", width: "20px", height: "20px" }}
+            onClick={()=>{
+              localStorage.clear()
+              navigate("/")
+            }}
           />
         </div>
       </nav>
