@@ -28,7 +28,7 @@ const Routing = () => {
           
 
         </Routes>
-        <ToastContainer theme="dark" autoClose={1000}/>
+        <ToastContainer theme="dark" autoClose={1000} position="bottom-right"/>
       </BrowserRouter>
       
     </div>
