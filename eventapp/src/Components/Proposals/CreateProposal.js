@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { ImCancelCircle } from "react-icons/im";
-
 import "./createProposal.css";
 
 const CreateProposal = () => {
@@ -25,11 +22,10 @@ const navigate =useNavigate()
       fetch("http://localhost:8080/createProposal",{
         method:"post",
         headers:{"Content-Type":"application/json",
-        "Authorization":"Bearer"+localStorage.getItem("jwt")
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
            },
-
         body:JSON.stringify({
-        eventName: eventName,
+          eventName: eventName,
         place:place,
         proposalType:proposalType,
         eventType:eventType,
@@ -86,9 +82,12 @@ const navigate =useNavigate()
   }
 
 
-  const BacktoVendorDashbord=()=>{
-     navigate("/Vendor_Dashboard")
-  }
+  // const handleSubmit =() => {
+
+    
+
+
+  // };
 
 
 
@@ -97,9 +96,7 @@ const navigate =useNavigate()
     <>
       <div className="C-proposal_container">
         <div>
-          <h2 style={{ textAlign: "center", color:"blue" }}>Create Proposal</h2>
-          <div><h1 style={{float:"right", marginTop:"-47px"}}><ImCancelCircle  onClick={BacktoVendorDashbord} /></h1></div>
-          
+          <h2 style={{ textAlign: "center" }}>Create Proposal</h2>
         </div>
         <hr></hr>
         <div className="row">
@@ -179,7 +176,7 @@ const navigate =useNavigate()
             <br></br>
 
             <div className="row" style={{ marginLeft: "20px" }}>
-              <div className="col-4">
+              <div className="col-3">
                 <label htmlFor="dateFrom">Date From</label>
                 <input
                   type="date"
@@ -191,7 +188,7 @@ const navigate =useNavigate()
               </div>
               <div className="col-3"></div>
 
-              <div className="col-4">
+              <div className="col-3">
                 <label htmlFor="dateTo">Date To</label>
                 <input
                   type="date"
@@ -222,10 +219,7 @@ const navigate =useNavigate()
 
           <div class="col-5">
             <div className="row">
-              <div>
-              <button type="button" class="btn btn-primary" onClick={handleclick} style={{width:"100px",float:"right"}} >Add Image</button>
-              </div>
-            
+              <label htmlFor="albums" onClick={handleclick}>Add</label>
               <input id="output" className="fileinp" multiple type="file" accept="image/*" onChange={(e) => { loadfile(e); setImage(e.target.files[0]) }} ref={hiddenInputFile} style={{ display: "none" }} />
             </div>
           
@@ -240,7 +234,6 @@ const navigate =useNavigate()
             <div className="row">
               <label htmlFor="food">Food</label>
               <textarea
-               style={{height:"150px"}}
                 id="description"
                 value={food}
                 onChange={(event) => setFood(event.target.value)}
@@ -250,7 +243,6 @@ const navigate =useNavigate()
             <div className="row">
               <label htmlFor="events">Events</label>
               <textarea
-              style={{height:"150px"}}
                 id="description"
                 value={events}
                 onChange={(event) =>setEvents(event.target.value)}
@@ -261,7 +253,8 @@ const navigate =useNavigate()
         </div>
 
         <hr></hr>
-        <button type="submit" style={{marginLeft:"40%", marginBottom:"15px"}} onClick={()=>postImage()}>Submit Proposal</button>
+        <button type="submit" style={{marginLeft:"40%"}} onClick={()=>postImage()}>Submit Proposal</button>
+        <br></br>
         <br></br>
       </div>
     </>

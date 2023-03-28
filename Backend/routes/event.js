@@ -7,7 +7,7 @@ const Proposal=mongoose.model("PROPOSAL");
 
 
 // posting data
-router.post('/createProposal', async (req, res) => {
+router.post('/createProposal',requireLogin, async (req, res) => {
     try {
         const { eventName, place, proposalType, eventType, budget, date_from, date_to, description,
             albums, food, events } = req.body;        
@@ -38,7 +38,7 @@ router.post('/createProposal', async (req, res) => {
 })
 
 
-router.get('/allProposal', async (req, res) => {
+router.get('/allProposal', requireLogin, async (req, res) => {
     Proposal.find()
     .populate("postedBy","_id name") 
     .sort('-createdAt')
@@ -66,11 +66,12 @@ router.get('/proposal/:id', async (req, res) => {
         })
     }
 })
+
 // update proposal
 router.put('/update/:id', async (req, res) => {
     try {
-        let data = await Proposal.findByIdAndUpdate({ _id: req.params.id }, req.body);
-        let newdata = await Proposal.findOne({ _id: req.params.id });
+        let data = await proposalSchema.findByIdAndUpdate({ _id: req.params.id }, req.body);
+        let newdata = await proposalSchema.findOne({ _id: req.params.id });
         return res.status(200).json({
             message: "updated successfully",
             newdata
@@ -83,19 +84,23 @@ router.put('/update/:id', async (req, res) => {
         })
     }
 })
+
 // delete proposal
-router.delete('/delete/:postId', async (req, res) => {
-   const task=await Proposal.findById(req.params.postId);
-   if(!task)
-    return res.status(404).json({
-        success:"failed",
-        message:"invalid id"
-    })
-   await task.deleteOne()
-    res.status(200).json({
-        message:"task deleted",
-        success:"true"
-    })
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const data = await proposalSchema.findOne({ _id: req.params.id })
+        data.deleteOne()
+        return res.status(200).json({
+            message: "post deleted successfully"
+        })
+
+    }
+    catch (e) {
+        res.status(422).json({
+            status: "failure",
+            error: e.error
+        })
+    }
 })
 
     //finding all proposal listed in db
