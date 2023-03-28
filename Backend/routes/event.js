@@ -63,7 +63,7 @@ router.get('/proposal/:id', async (req, res) => {
         res.status(422).json({
             status: "failure",
             error: e.error
-        })
+        }) 
     }
 })
 
