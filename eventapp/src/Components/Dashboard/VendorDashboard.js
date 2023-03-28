@@ -33,13 +33,13 @@ const VendorDashboard = () => {
 
 
   useEffect(() => {
-    fetch("http://localhost:8080/mypost", {
+    fetch("http://localhost:8080/allProposal", {
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("jwt")
         }
     }).then(res => res.json())
         .then(result => {
-          setvendordetails(result.mypost)
+          setvendordetails(result.posts)
         })
 }, [])
 
@@ -55,7 +55,7 @@ const handleClick = (event, id) => {
 };
 
 
- console.log(vendordetails)
+
 
 
   return (
@@ -80,7 +80,12 @@ const handleClick = (event, id) => {
             }}
           />
           <GrLogout
-            style={{ marginRight: "15px", width: "30px", height: "30px" }}
+            style={{ marginRight: "15px", width: "30px", height: "30px"
+            }}
+            onClick={()=>{
+              localStorage.clear()
+              navigate("/")
+            }}
           />
         </div>
       </nav>
@@ -123,7 +128,7 @@ const handleClick = (event, id) => {
             vendordetails.map((details,key)=>{
            return(
             <div className="detailscard" key={key}>
-              <h4>{details.events}</h4>
+              <h4>{details.eventName}</h4>
               <p>{details.description}</p>
             <div className="row">
             <div className="col">
@@ -146,7 +151,7 @@ const handleClick = (event, id) => {
             <div className="col">
         
             <div style={{float:"right",marginRight:"30px"}}><MdEdit style={{height:"25px", width:"25px"}} onClick={Upadateproposal}/></div>
-            <div style={{float:"right", marginRight:"30px",}}><RiDeleteBin6Fill style={{height:"25px", width:"25px"}} onClick={event => handleClick(event, details.postedBy._id)} /> </div>
+            <div style={{float:"right", marginRight:"30px",}}><RiDeleteBin6Fill style={{height:"25px", width:"25px"}} onClick={event => handleClick(event, details._id)} /> </div>
             
             </div>
          </div>

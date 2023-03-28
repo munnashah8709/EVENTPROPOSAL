@@ -3,12 +3,11 @@ const router = express.Router();
 const mongoose = require("mongoose")
 const proposalSchema = require('../schemas/proposal');
 const requireLogin=require("../middleware/requireLogin");
-const Vendor = mongoose.model("Vendor");
 const Proposal=mongoose.model("PROPOSAL");
 
 
 // posting data
-router.post('/createProposal', async (req, res) => {
+router.post('/createProposal',requireLogin, async (req, res) => {
     try {
         const { eventName, place, proposalType, eventType, budget, date_from, date_to, description,
             albums, food, events } = req.body;        
@@ -39,7 +38,7 @@ router.post('/createProposal', async (req, res) => {
 })
 
 
-router.get('/allProposal', async (req, res) => {
+router.get('/allProposal', requireLogin, async (req, res) => {
     Proposal.find()
     .populate("postedBy","_id name") 
     .sort('-createdAt')
@@ -90,7 +89,7 @@ router.put('/update/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
     try {
         const data = await proposalSchema.findOne({ _id: req.params.id })
-        data.remove()
+        data.deleteOne()
         return res.status(200).json({
             message: "post deleted successfully"
         })

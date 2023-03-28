@@ -14,22 +14,27 @@ const UserDeshboard = () => {
   const navigate=useNavigate();
    
   const [allevents, setallevents]=useState([]);
-
   const [name, setName] = useState("");
-  const [particularDetails,setParticularDetails]=useState("")
-
   const userName = localStorage.getItem("User");
   const U = JSON.parse(userName);
   useEffect(() => {
     setName(U.name);
   }, []);
 
+  const vendorName = localStorage.getItem("SelectedDetails");
+  const selectedEvents = JSON.parse(vendorName);
+
+  console.log(selectedEvents.eventName)
+
+
 
   
-const imageClick=()=>{
- navigate("/proposalsDetails")
-
+const imageClick=(e)=>{
+  navigate("/proposalsDetails",{state:{e}})
 }
+ 
+
+
   useEffect(()=>{
     axiox.get("http://localhost:8080/findAllProposal").then((res)=>{
     setallevents(res.data.data)
@@ -39,7 +44,7 @@ const imageClick=()=>{
   },[])
 
 
-  console.log(allevents)
+
 
   return (
     <>
@@ -64,6 +69,10 @@ const imageClick=()=>{
           />
           <GrLogout
             style={{ marginRight: "15px", width: "20px", height: "20px" }}
+            onClick={()=>{
+              localStorage.clear()
+              navigate("/")
+            }}
           />
         </div>
       </nav>
@@ -76,15 +85,37 @@ const imageClick=()=>{
       </div>
 
 
+  
+  <p>Selected Proposal</p>
+    <div className="card" style={{marginLeft:"10px", marginTop:"20px"}} >
+    <img src={selectedEvents.albums[0]} className="card-img-top" alt="" />
+    <div className="card-body">
+      <p className="card-title">{selectedEvents.eventName}</p>
+      <p className="price">Rs. {selectedEvents.budget}</p>
+      <p className="place">{selectedEvents.place}</p>
+    </div>
+  </div>
+
+  <br>
+  </br>
+  <br>
+  </br>
+
+
+
 
       <p id="proposals-title">PROPOSALS</p>
-
       <div className="card-container">
      {
       allevents.map((allval, key)=>{
          return (
+
           <div className="card" key={key} style={{marginLeft:"10px", marginTop:"20px"}} >
           <img src={allval.albums[0]} className="card-img-top" alt="" onClick={imageClick} style={{height:"150px",width:"191px"}}/>
+
+          <div className="card" key={key} style={{marginLeft:"10px", marginTop:"20px"}}  onClick={(e) => { imageClick(allval) }} >
+          <img src={allval.albums[0]} className="card-img-top" alt="" />
+
           <div className="card-body">
             <p className="card-title">{allval.eventName}</p>
             <p className="price">Rs. {allval.budget}</p>

@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { ImCancelCircle } from "react-icons/im";
-
 import "./createProposal.css";
 
 const CreateProposal = () => {
@@ -19,6 +16,7 @@ const CreateProposal = () => {
   const [food, setFood] = useState("");
   const [events, setEvents] = useState("");
   const [url, setUrl] = useState("");
+
   const navigate = useNavigate();
   useEffect(() => {
     if (url) {
@@ -51,6 +49,28 @@ const CreateProposal = () => {
             alert("post saved");
             navigate("/Vendor_Dashboard");
           }
+
+const navigate =useNavigate()
+  useEffect(()=>{
+    if(url){
+      fetch("http://localhost:8080/createProposal",{
+        method:"post",
+        headers:{"Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+           },
+        body:JSON.stringify({
+          eventName: eventName,
+        place:place,
+        proposalType:proposalType,
+        eventType:eventType,
+        budget:budget,
+        date_from:dateFrom,
+        date_to:dateTo,
+        description:description,
+        albums:url,
+        food:food,
+        events:events,
+
         })
         .catch((error) => {
           console.log(error);
@@ -85,8 +105,22 @@ const CreateProposal = () => {
     }
   };
   const handleclick = () => {
+
     hiddenInputFile.current.click();
-  };
+}
+    hiddenInputFile.current.click()
+  }
+
+
+  // const handleSubmit =() => {
+
+    
+
+
+  // };
+
+
+
 
   const BacktoVendorDashbord = () => {
     navigate("/Vendor_Dashboard");
@@ -95,6 +129,7 @@ const CreateProposal = () => {
   return (
     <>
       <div className="C-proposal_container">
+
         <div className="title">
           <h2>CREATE PROPOSAL</h2>
           <div>
@@ -104,6 +139,10 @@ const CreateProposal = () => {
               <ImCancelCircle onClick={BacktoVendorDashbord} />
             </h1>
           </div>
+
+        <div>
+          <h2 style={{ textAlign: "center" }}>Create Proposal</h2>
+
         </div>
         <div className="row">
           <div className="col-5">
@@ -189,7 +228,7 @@ const CreateProposal = () => {
             <br></br>
 
             <div className="row" style={{ marginLeft: "20px" }}>
-              <div className="col-4">
+              <div className="col-3">
                 <label htmlFor="dateFrom">Date From</label>
                 <input
                   type="date"
@@ -201,7 +240,7 @@ const CreateProposal = () => {
               </div>
               <div className="col-3"></div>
 
-              <div className="col-4">
+              <div className="col-3">
                 <label htmlFor="dateTo">Date To</label>
                 <input
                   type="date"
@@ -230,6 +269,7 @@ const CreateProposal = () => {
 
           <div className="col-5">
             <div className="row">
+
               <div className="pic">
                 <button
                   type="button"
@@ -263,6 +303,15 @@ const CreateProposal = () => {
                 ref={hiddenInputFile}
                 style={{ display: "none" }}
               />
+
+              <label htmlFor="albums" onClick={handleclick}>Add</label>
+              <input id="output" className="fileinp" multiple type="file" accept="image/*" onChange={(e) => { loadfile(e); setImage(e.target.files[0]) }} ref={hiddenInputFile} style={{ display: "none" }} />
+            </div>
+          
+            <div class="imgcontainer">
+            <div class="card"  id="galeria" style={{width:"50px", height:"50px"}}>
+            <img  style={{width:"50px", height:"50px"}} src={require("../../image/logo.png")} alt=""></img>
+
             </div>
 
             {/* image */}
@@ -285,7 +334,10 @@ const CreateProposal = () => {
             <div className="row">
               <label htmlFor="food">Food</label>
               <textarea
+
                 style={{ height: "150px" }}
+
+
                 id="description"
                 value={food}
                 onChange={(event) => setFood(event.target.value)}
@@ -295,7 +347,9 @@ const CreateProposal = () => {
             <div className="row">
               <label htmlFor="events">Events</label>
               <textarea
+
                 style={{ height: "150px" }}
+
                 id="description"
                 value={events}
                 onChange={(event) => setEvents(event.target.value)}
@@ -305,6 +359,7 @@ const CreateProposal = () => {
         </div>
 
         <hr></hr>
+
         <button
           type="submit"
           style={{ marginLeft: "40%", marginBottom: "15px" }}
@@ -312,6 +367,10 @@ const CreateProposal = () => {
         >
           Submit Proposal
         </button>
+
+        <button type="submit" style={{marginLeft:"40%"}} onClick={()=>postImage()}>Submit Proposal</button>
+        <br></br>
+
         <br></br>
       </div>
     </>
