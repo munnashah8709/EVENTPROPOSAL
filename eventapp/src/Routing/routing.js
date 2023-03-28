@@ -8,6 +8,7 @@ import VenodorDasbord from '../Components/Dashboard/VendorDashboard';
 import UserDeshboard from '../Components/Dashboard/UserDeshboard';
 import CreateProposal from '../Components/Proposals/CreateProposal';
 import ProposalsDetails from '../Components/Proposals/ProposalsDetails';
+import Upadateproposal from '../Components/Proposals/UpdateProposal';
 
 
 const Routing = () => {
@@ -22,13 +23,13 @@ const Routing = () => {
           <Route path="/User_Dashboard" element={<UserDeshboard />} />
           <Route path="/Vendor_Dashboard" element={<VenodorDasbord />} />
           <Route path="/CreateProposal" element={<CreateProposal />} />
-          <Route path="/editProposal/id" element={<CreateProposal />} />
+          <Route path="/editProposal/id" element={<Upadateproposal />} />
           <Route path="/proposalsDetails" element={< ProposalsDetails/>}/>
 
           
 
         </Routes>
-        <ToastContainer theme="dark" autoClose={1000}/>
+        <ToastContainer theme="dark" autoClose={1000} position="bottom-right"/>
       </BrowserRouter>
       
     </div>

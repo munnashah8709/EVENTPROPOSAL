@@ -24,17 +24,11 @@ const UserDeshboard = () => {
   const vendorName = localStorage.getItem("SelectedDetails");
   const selectedEvents = JSON.parse(vendorName);
 
-  // console.log(selectedEvents.eventName)
 
-
-
-  
 const imageClick=(e)=>{
   navigate("/proposalsDetails",{state:{e}})
 }
  
-
-
   useEffect(()=>{
     axiox.get("http://localhost:8080/findAllProposal").then((res)=>{
     setallevents(res.data.data)
@@ -70,7 +64,7 @@ const imageClick=(e)=>{
           <GrLogout
             style={{ marginRight: "15px", width: "20px", height: "20px" }}
             onClick={()=>{
-              
+
               navigate("/")
             }}
           />
@@ -109,8 +103,13 @@ const imageClick=(e)=>{
      {
       allevents.map((allval, key)=>{
          return (
+
+          <div className="card" key={key} style={{marginLeft:"10px", marginTop:"20px"}} >
+          <img src={allval.albums[0]} className="card-img-top" alt="" onClick={imageClick} style={{height:"150px",width:"191px"}}/>
+
           <div className="card" key={key} style={{marginLeft:"10px", marginTop:"20px"}}  onClick={(e) => { imageClick(allval) }} >
           <img src={allval.albums[0]} className="card-img-top" alt="" />
+
           <div className="card-body">
             <p className="card-title">{allval.eventName}</p>
             <p className="price">Rs. {allval.budget}</p>
