@@ -93,8 +93,8 @@ const Home = () => {
 
   return (
 <>
-<div className='bgimg' style={{ backgroundImage: `url(${party}` ,height:"1200px",width:"100%"} }  >
-<div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"white", marginTop:"150px", marginRight:"200px",}}>
+<div className='bgimg' style={{ backgroundImage: `url(${party}` ,height:"1200px",width:"100%",} }  >
+<div className="conatiner1" style={{ display:"flex", float:"right", backgroundColor:"#A9A9A9", marginTop:"150px", marginRight:"200px",borderRadius:"5px",color:"black"}}>
 <div className="tab-content" style={{padding:"20px", justifyContent:"center", width:"382px"}}  >
 {/* userbutton and vendor butoon */}
 
@@ -120,7 +120,7 @@ const Home = () => {
       </div>
       <br></br>
       <div className="form-outline mb-4">
-        <input type="text" placeholder='Phone / Email' className='inputs' name='email' onChange={(e) => setemail(e.target.value)} />
+        <input type="text" placeholder='Email' className='inputs' name='email' onChange={(e) => setemail(e.target.value)} />
       </div>
       <div className="form-outline mb-4">
         <input type="password" 
