@@ -81,6 +81,10 @@ const handleClick = (event, id) => {
           />
           <GrLogout
             style={{ marginRight: "15px", width: "30px", height: "30px" }}
+            onClick={()=>{
+              localStorage.clear()
+              navigate("/")
+            }}
           />
         </div>
       </nav>
