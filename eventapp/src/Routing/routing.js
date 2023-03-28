@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import VenodorDasbord from '../Components/Dashboard/VendorDashboard';
 import UserDeshboard from '../Components/Dashboard/UserDeshboard';
 import CreateProposal from '../Components/Proposals/CreateProposal';
+import ProposalsDetails from '../Components/Proposals/ProposalsDetails';
 
 
 const Routing = () => {
@@ -21,6 +22,9 @@ const Routing = () => {
           <Route path="/User_Dashboard" element={<UserDeshboard />} />
           <Route path="/Vendor_Dashboard" element={<VenodorDasbord />} />
           <Route path="/CreateProposal" element={<CreateProposal />} />
+          <Route path="/editProposal/id" element={<CreateProposal />} />
+          <Route path="/proposalsDetails" element={< ProposalsDetails/>}/>
+
           
 
         </Routes>
