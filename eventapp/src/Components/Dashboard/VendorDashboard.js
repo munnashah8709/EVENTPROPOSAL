@@ -55,7 +55,7 @@ const handleClick = (event, id) => {
 };
 
 
- console.log(vendordetails)
+
 
 
   return (
