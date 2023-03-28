@@ -55,7 +55,7 @@ const handleClick = (event, id) => {
 };
 
 
- console.log(vendordetails)
+
 
 
   return (
@@ -146,7 +146,7 @@ const handleClick = (event, id) => {
             <div className="col">
         
             <div style={{float:"right",marginRight:"30px"}}><MdEdit style={{height:"25px", width:"25px"}} onClick={Upadateproposal}/></div>
-            <div style={{float:"right", marginRight:"30px",}}><RiDeleteBin6Fill style={{height:"25px", width:"25px"}} onClick={event => handleClick(event, details.postedBy._id)} /> </div>
+            <div style={{float:"right", marginRight:"30px",}}><RiDeleteBin6Fill style={{height:"25px", width:"25px"}} onClick={event => handleClick(event, details._id)} /> </div>
             
             </div>
          </div>
