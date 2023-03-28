@@ -24,6 +24,7 @@ const UserDeshboard = () => {
   const vendorName = localStorage.getItem("SelectedDetails");
   const selectedEvents = JSON.parse(vendorName);
 
+
 const imageClick=(e)=>{
   navigate("/proposalsDetails",{state:{e}})
 }
@@ -63,6 +64,7 @@ const imageClick=(e)=>{
           <GrLogout
             style={{ marginRight: "15px", width: "20px", height: "20px" }}
             onClick={()=>{
+
               navigate("/")
             }}
           />
