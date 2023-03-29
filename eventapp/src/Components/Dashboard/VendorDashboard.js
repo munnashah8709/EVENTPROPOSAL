@@ -126,9 +126,9 @@ const handleClick = (event, id) => {
           {
             vendordetails.map((details,key)=>{
            return(
-            <div className="detailscard" key={key}>
-              <h4>{details.eventName}</h4>
-              <p>{details.description}</p>
+            <div className="detailscard" key={key} style={{marginTop:"50px",borderRadius:"5px",fontWeight:"600",fontFamily:"monospace"}}>
+              <h4 style={{textDecoration:"underline",color:"darkgreen"}}>{details.eventName}</h4>
+              <p style={{textDecoration:"underline",color:"green"}}>{details.description}</p>
             <div className="row">
             <div className="col">
               <p>Event_Type</p>
@@ -144,7 +144,7 @@ const handleClick = (event, id) => {
               {details.date_to}
               </div>
             <div className="col">
-              <p>Buget</p>
+              <p>Budget</p>
               {details.budget}
               </div>
             <div className="col">

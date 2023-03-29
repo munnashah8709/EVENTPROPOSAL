@@ -79,9 +79,9 @@ const imageClick=(e)=>{
 
 
   
-  <p>Selected Proposal</p>
-    <div className="card" style={{marginLeft:"10px", marginTop:"20px"}} >
-    <img src={selectedEvents.albums[0]} className="card-img-top" alt="" />
+  <h4 style={{marginLeft:"150px",marginTop:"10px",textDecoration:"underline"}}>Selected Proposal</h4>
+    <div className="card" style={{marginLeft:"150px", marginTop:"20px"}} >
+    <img src={selectedEvents.albums[0]} className="card-img-top" alt=""  style={{height:"180px",width:"192px"}}/>
     <div className="card-body">
       <p className="card-title">{selectedEvents.eventName}</p>
       <p className="price">Rs. {selectedEvents.budget}</p>
@@ -89,21 +89,18 @@ const imageClick=(e)=>{
     </div>
   </div>
 
-  <br>
-  </br>
-  <br>
-  </br>
+  <br/>
 
 
 
 
       <p id="proposals-title">PROPOSALS</p>
-      <div className="card-container">
+      <div className="card-container" style={{padding:"20px"}} >
      {
       allevents.map((allval, key)=>{
          return (
-          <div className="card" key={key} style={{marginLeft:"10px", marginTop:"20px"}}  onClick={(e) => { imageClick(allval) }} >
-          <img src={allval.albums[0]} className="card-img-top" alt="" />
+          <div className="card" key={key} style={{marginLeft:"30px", marginTop:"20px"}}  onClick={(e) => { imageClick(allval) }} >
+          <img src={allval.albums[0]} className="card-img-top" alt=""  style={{height:"180px",width:"192px"}} />
           <div className="card-body">
             <p className="card-title">{allval.eventName}</p>
             <p className="price">Rs. {allval.budget}</p>
@@ -124,4 +121,4 @@ const imageClick=(e)=>{
 
 export default UserDeshboard;
 
-// http://localhost:8080/findAllProposal
+
