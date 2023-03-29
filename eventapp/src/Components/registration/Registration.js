@@ -121,7 +121,7 @@ const Registration = () => {
             display: "flex",
             float: "right",
             backgroundColor: "white",
-            marginTop: "150px",
+            marginTop: "45px",
             marginRight: "200px",
             color: "black",
             borderRadius: "5px",
