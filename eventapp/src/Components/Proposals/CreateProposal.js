@@ -21,7 +21,7 @@ const CreateProposal = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (url) {
-      fetch("http://localhost:8080/createProposal", {
+      fetch("https://eventproposalapp.onrender.com/createProposal", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

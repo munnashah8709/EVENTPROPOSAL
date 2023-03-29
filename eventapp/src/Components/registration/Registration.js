@@ -43,7 +43,7 @@ const Registration = () => {
       notifyA("Password does not match");
     } else
       axios
-        .post("http://localhost:8080/usersignup", formdata1, {
+        .post("https://eventproposalapp.onrender.com/usersignup", formdata1, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formdata1),
@@ -72,7 +72,7 @@ const Registration = () => {
       notifyA("Password doesnot match");
     } else
       axios
-        .post("http://localhost:8080/vendorsignup", formdata, {
+        .post("https://eventproposalapp.onrender.com/vendorsignup", formdata, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formdata),

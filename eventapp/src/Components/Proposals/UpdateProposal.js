@@ -24,7 +24,7 @@ const CreateProposal = () => {
 
   useEffect(() => {
     if (url) {
-      fetch(`http://localhost:8080/update/${id}`, {
+      fetch(`https://eventproposalapp.onrender.com/update/${id}`, {
         method: "put",
         headers: {
           "Content-Type": "application/json",

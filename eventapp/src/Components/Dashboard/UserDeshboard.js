@@ -30,7 +30,7 @@ const imageClick=(e)=>{
 }
  
   useEffect(()=>{
-    axiox.get("http://localhost:8080/findAllProposal").then((res)=>{
+    axiox.get("https://eventproposalapp.onrender.com/findAllProposal").then((res)=>{
     setallevents(res.data.data)
     }).catch((err)=>{
       console.log(err)
