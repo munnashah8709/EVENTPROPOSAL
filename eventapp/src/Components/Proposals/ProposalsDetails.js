@@ -57,14 +57,14 @@ const ProposalsDetails = () => {
         <div className="card1" id="card1">
             <h6> PROPOSALS - John Contract</h6>
             <img src={location.state.e.albums[0]} alt="" style={{width:"250px",height:"80px"}}/>
-            <p><span>NAME:</span>{location.state.e.postedBy.name}</p>
+            <p style={{marginTop:"15px"}}><span>NAME:</span>{location.state.e.postedBy.name}</p>
             <p><span>EMAIL:</span>{location.state.e.postedBy.email}</p>
             <p><span>START DATE:</span>{location.state.e.date_from}</p>
             <p><span>END DATE:</span>{location.state.e.date_to}</p>
             <p><span>EVENT TYPE:</span>{location.state.e.eventType}</p>
       </div>
 
-
+       
         <div className="card1" id="card2">
             <h6>VENUE AND ARRANGEMENTS</h6>
             <p className="para1">{location.state.e.description}</p>
@@ -100,6 +100,7 @@ const ProposalsDetails = () => {
             <p className="para1">{location.state.e.events}</p>
             </div>
         </div>
+   
       
     </>
   );

@@ -58,13 +58,13 @@ button[type="submit"]:hover {
   border: 2px solid black;
   margin-top: 15px;
   border-radius: 5px;
-  background-color: blueviolet;
+  background-color:white;
 }
 
 .imgcontainer {
   padding: 10px;
   border: 1px solid black;
-  height: 90px;
+  height: 120px;
   width: 100%;
   margin-top: 2px;
   margin-bottom: 10px;
@@ -79,6 +79,29 @@ button[type="submit"]:hover {
   padding: 10px;
 }
 
+#galeria{
+  display: grid;
+  grid-template-columns:repeat(5,minmax(70px,50px));
+  grid-template-rows:repeat(auto-fit,minmax(55px,50px));
+}
 
-  
- 
+
+#galeria img{
+  width: 50px;
+  margin-left: 10px;
+  height: 50px;
+}
+.row{
+margin: 5px;
+}
+
+.textares{
+  height: 100px;
+}
+.cancelBtn{
+  margin-top: 5px;
+  width: 50px;
+  height: 40px;
+  float: right;
+  margin-right: 10px;
+}
