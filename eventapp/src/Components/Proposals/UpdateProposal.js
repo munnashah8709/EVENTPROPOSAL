@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./createProposal.css";
+import { GiCancel } from "react-icons/gi";
 
-const Upadateproposal = () => {
-
+const CreateProposal = () => {
   const hiddenInputFile = useRef(null);
   const [image, setImage] = useState([]);
   const [eventName, setEventName] = useState("");
@@ -17,64 +17,79 @@ const Upadateproposal = () => {
   const [food, setFood] = useState("");
   const [events, setEvents] = useState("");
   const [url, setUrl] = useState("");
+  const navigate = useNavigate();
 
-  const location=useLocation();
-  const id=location.state.updatedetails._id;
- 
-const navigate =useNavigate()
-  useEffect(()=>{
-    if(url){
-      fetch(`http://localhost:8080/update/${id}`,{
-        method:"put",
-        headers:{"Content-Type":"application/json",
-        "Authorization":"Bearer "+localStorage.getItem("jwt")
-           },
-        body:JSON.stringify({
-        eventName: eventName,
-        place:place,
-        proposalType:proposalType,
-        eventType:eventType,
-        budget:budget,
-        date_from:dateFrom,
-        date_to:dateTo,
-        description:description,
-        albums:url,
-        food:food,
-        events:events,
+  const location = useLocation();
+  const id = location.state.updatedetails._id;
+
+  useEffect(() => {
+    if (url) {
+      fetch(`http://localhost:8080/update/${id}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({
+          eventName: eventName,
+          place: place,
+          proposalType: proposalType,
+          eventType: eventType,
+          budget: budget,
+          date_from: dateFrom,
+          date_to: dateTo,
+          description: description,
+          albums: url,
+          food: food,
+          events: events,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            alert(data.error);
+          } else {
+            alert("post saved");
+            navigate("/Vendor_Dashboard");
+          }
         })
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        if(data.error){
-    alert(data.error)
-        }else{
-        alert("post saved")
-        navigate("/Vendor_Dashboard")
-      }
-    })
-    .catch(error=>{
-        console.log(error)
-    })
-
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    },[url])
-  const postImage=()=>{
-    const data=new FormData();
-    data.append("file",image);
-    data.append("upload_preset","Event-Proposal");
-    data.append("cloud_name","dfqxuq3qn");
-    fetch("https://api.cloudinary.com/v1_1/dfqxuq3qn/image/upload",{
-        method:"post",
-        body:data
+  }, [url]);
+  const postImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "Event-Proposal");
+    data.append("cloud_name", "dfqxuq3qn");
+    fetch("https://api.cloudinary.com/v1_1/dfqxuq3qn/image/upload", {
+      method: "post",
+      body: data,
     })
-    .then(res=>res.json())
-    .then(data=>{setUrl(data.url)})
-    .catch(error=>{console.log(error)})
+      .then((res) => res.json())
+      .then((data) => {
+        setUrl(data.url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-}
+  const loadfile = (event) => {
+    var output = document.getElementById("output");
+    var imgs = output.files.length;
+    for (let i = 0; i < imgs; i++) {
+      var urls = URL.createObjectURL(event.target.files[i]);
+      document.getElementById("galeria").innerHTML +=
+        '<img src="' + urls + '">';
+    }
+  };
+  const handleclick = () => {
+    hiddenInputFile.current.click();
+  };
 
-
-useEffect(()=>{
+  useEffect(() => {
     setEventName(location.state.updatedetails.eventName);
     setFood(location.state.updatedetails.food);
     setDescription(location.state.updatedetails.description);
@@ -85,31 +100,24 @@ useEffect(()=>{
     setPlace(location.state.updatedetails.place);
     setProposalType(location.state.updatedetails.proposalType);
     setEventType(location.state.updatedetails.eventType);
-    setImage(location.state.updatedetails.albums[0])
+    setImage(location.state.updatedetails.albums[0]);
+  }, []);
 
-},[])
-
-  
-  const loadfile = (event) => {
-    var output = document.getElementById('output');
-    var imgs = output.files.length;
-  for (let i = 0; i < imgs; i++) {
-      var urls = URL.createObjectURL(event.target.files[i]);
-      document.getElementById("galeria").innerHTML += '<img src="' + urls + '">';
-    }
-  }
-  const handleclick = () => {
-    hiddenInputFile.current.click()
-  }
-
-
-
+  const backToVendorDasboard = () => {
+    navigate("/Vendor_Dashboard");
+  };
 
   return (
     <>
       <div className="C-proposal_container">
-        <div>
-          <h2 style={{ textAlign: "center" }}>Update Proposal</h2>
+        <div className="row">
+          <div className="col-4"></div>
+          <div className="col-4">
+            <h2>Edit Proposal</h2>
+          </div>
+          <div className="col-4">
+            <GiCancel className="cancelBtn" onClick={backToVendorDasboard} />
+          </div>
         </div>
         <hr></hr>
         <div className="row">
@@ -145,7 +153,7 @@ useEffect(()=>{
               <div className="col-1"></div>
               <div className="col-5">
                 <label htmlFor="">Proposal Type</label>
-                <br />
+
                 <select
                   id="code-select"
                   onChange={(e) => {
@@ -158,10 +166,48 @@ useEffect(()=>{
                 </select>
               </div>
             </div>
-            <br></br>
 
             <div className="row" style={{ marginLeft: "20px" }}>
               <div className="col-6">
+                <label htmlFor="dateFrom">Date From</label>
+                <input
+                  type="date"
+                  id="dateFrom"
+                  value={dateFrom}
+                  onChange={(event) => setDateFrom(event.target.value)}
+                  required
+                />
+              </div>
+              <div className="col-1"></div>
+
+              <div className="col-3">
+                <label htmlFor="budget">Budget</label>
+                <input
+                  type="number"
+                  placeholder="00000"
+                  onChange={(e) => {
+                    setBudget(e.target.value);
+                  }}
+                  value={budget}
+                  style={{ width: "120px" }}
+                />
+              </div>
+            </div>
+
+            <div className="row" style={{ marginLeft: "20px" }}>
+              <div className="col-6">
+                <label htmlFor="dateTo">Date To</label>
+                <input
+                  type="date"
+                  id="dateTo"
+                  value={dateTo}
+                  onChange={(event) => setDateTo(event.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="col-1"></div>
+              <div className="col-4">
                 <label htmlFor="eventType">Event Type</label>
                 <select
                   id="code-select"
@@ -177,76 +223,53 @@ useEffect(()=>{
                   <option value="Engagement">Engagement</option>
                 </select>
               </div>
-
-              <div className="col-1"></div>
-
-              <div className="col-3">
-                <label htmlFor="budget">Budget</label>
-                <input type="number" placeholder="00000" onChange = {(e)=>{setBudget(e.target.value)}} value={budget}/>
-              </div>
             </div>
-
-            <br></br>
-
-            <div className="row" style={{ marginLeft: "20px" }}>
-              <div className="col-4">
-                <label htmlFor="dateFrom">Date From</label>
-                <input
-                  type="date"
-                  id="dateFrom"
-                  value={dateFrom}
-                  onChange={(event) => setDateFrom(event.target.value)}
-                  required
-                />
-              </div>
-              <div className="col-3"></div>
-
-              <div className="col-3">
-                <label htmlFor="dateTo">Date To</label>
-                <input
-                  type="date"
-                  id="dateTo"
-                  value={dateTo}
-                  onChange={(event) => setDateTo(event.target.value)}
-                  required
-                />
-              </div>
-            </div>
- <br></br>
-
 
             <div className="row" style={{ marginLeft: "20px" }}>
               <label htmlFor="description">Description</label>
               <textarea
                 id="description"
                 value={description}
-                onChange={(event) =>setDescription(event.target.value)}
+                onChange={(event) => setDescription(event.target.value)}
               ></textarea>
             </div>
-
-
-            <br></br>
           </div>
 
           <div className="col-1"></div>
 
-          <div className="col-5">
+          <div class="col-5">
             <div className="row">
-              <label htmlFor="albums" onClick={handleclick}>Add</label>
-              <input id="output" className="fileinp" multiple type="file" accept="image/*" onChange={(e) => { loadfile(e); setImage(e.target.files[0]) }} ref={hiddenInputFile} style={{ display: "none" }} />
+              <label htmlFor="albums" onClick={handleclick}>
+                Add
+              </label>
+              <input
+                id="output"
+                className="fileinp"
+                multiple
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  loadfile(e);
+                  setImage(e.target.files[0]);
+                }}
+                ref={hiddenInputFile}
+                style={{ display: "none" }}
+              />
             </div>
-          
-            <div className="imgcontainer">
-            <div className="card"  id="galeria" style={{width:"50px", height:"50px"}}>
-            <img  style={{width:"50px", height:"50px"}} src={require("../../image/logo.png")} alt=""></img>
+            <div class="imgcontainer">
+              <div id="galeria" style={{ width: "50px", height: "50px" }}>
+                <img
+                  style={{ width: "50px", height: "50px" }}
+                  src={require("../../image/logo.png")}
+                  alt=""
+                ></img>
+              </div>
             </div>
-          </div>
-           
-
 
             <div className="row">
               <label htmlFor="food">Food</label>
               <textarea
+                className="textares"
                 id="description"
                 value={food}
                 onChange={(event) => setFood(event.target.value)}
@@ -256,22 +279,32 @@ useEffect(()=>{
             <div className="row">
               <label htmlFor="events">Events</label>
               <textarea
+                className="textares"
                 id="description"
                 value={events}
-                onChange={(event) =>setEvents(event.target.value)}
+                onChange={(event) => setEvents(event.target.value)}
               ></textarea>
             </div>
-
           </div>
         </div>
 
-        <hr></hr>
-        <button type="submit" style={{marginLeft:"40%"}} onClick={()=>postImage()}>Update Proposal</button>
-        <br></br>
+        <div className="row">
+          <div className="col-4"></div>
+          <div className="col-4">
+            <button
+              type="submit"
+              style={{ marginLeft: "40%" }}
+              onClick={() => postImage()}
+            >
+              Update
+            </button>
+          </div>
+          <div className="col-4"></div>
+        </div>
         <br></br>
       </div>
     </>
   );
 };
 
-export default Upadateproposal;
+export default CreateProposal;
