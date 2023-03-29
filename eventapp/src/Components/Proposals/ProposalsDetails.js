@@ -18,10 +18,6 @@ const ProposalsDetails = () => {
   const location = useLocation();
 
   const navigate=useNavigate();
-
-  
-
-
   const sendDataToLocal=()=>{
     localStorage.setItem("SelectedDetails", JSON.stringify(location.state.e))
     navigate("/User_Dashboard")

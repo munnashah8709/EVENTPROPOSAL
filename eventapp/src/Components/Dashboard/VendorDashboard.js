@@ -9,8 +9,6 @@ import { MdEdit } from "react-icons/md";
 import axios from 'axios';
 
 import "./vendor_Desbord.css";
-
-
 const VendorDashboard = () => {
   const [name, setName] = useState("");
   const [vendordetails, setvendordetails]=useState([])
@@ -33,7 +31,7 @@ const VendorDashboard = () => {
 
 
   useEffect(() => {
-    fetch("http://localhost:8080/allProposal", {
+    fetch("https://eventproposalapp.onrender.com/allProposal", {
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("jwt")
         }
@@ -44,7 +42,7 @@ const VendorDashboard = () => {
 }, [])
 
 const handleClick = (event, id) => {
-  axios.delete(`http://localhost:8080/delete/${id}`)
+  axios.delete(`https://eventproposalapp.onrender.com/delete/${id}`)
   .then(response => {
     console.log(response);
   })

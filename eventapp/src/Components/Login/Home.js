@@ -25,7 +25,7 @@ const Home = () => {
 
   //Vendorlogin
   const VendorLogin = async () => {
-    const resp = await fetch("http://localhost:8080/vendorsignin", {
+    const resp = await fetch("https://eventproposalapp.onrender.com/vendorsignin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const Home = () => {
 
   // userlogin
   const UserLogin = async () => {
-    const response = await fetch("http://localhost:8080/usersignin", {
+    const response = await fetch("https://eventproposalapp.onrender.com/usersignin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
